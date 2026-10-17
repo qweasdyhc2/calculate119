@@ -1,0 +1,37 @@
+<!doctype html>
+<html lang="ko"><head>
+<meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1">
+<title>커플 기념일 계산기 - 100일, 200일, 1주년 날짜 한눈에</title>
+<meta name="description" content="사귄 날만 넣으면 오늘이 며칠째인지, 100일·200일·1000일·주년 기념일이 언제인지 요일과 D-day까지 한 번에 보여 줍니다.">
+<link rel="canonical" href="https://calculate119.com/couple.html">
+<meta property="og:type" content="website"><meta property="og:site_name" content="생활계산소">
+<meta property="og:title" content="커플 기념일 계산기 - 100일, 200일, 1주년 날짜 한눈에"><meta property="og:description" content="사귄 날만 넣으면 오늘이 며칠째인지, 100일·200일·1000일·주년 기념일이 언제인지 요일과 D-day까지 한 번에 보여 줍니다.">
+<meta property="og:url" content="https://calculate119.com/couple.html"><meta property="og:locale" content="ko_KR">
+<link rel="icon" href="/favicon.svg" type="image/svg+xml">
+<link rel="stylesheet" href="/style.css">
+<script type="application/ld+json">{"@context": "https://schema.org", "@type": "WebApplication", "name": "커플 기념일 계산기", "url": "https://calculate119.com/couple.html", "applicationCategory": "UtilitiesApplication", "operatingSystem": "Any", "inLanguage": "ko", "offers": {"@type": "Offer", "price": "0", "priceCurrency": "KRW"}, "description": "사귄 날만 넣으면 오늘이 며칠째인지, 100일·200일·1000일·주년 기념일이 언제인지 요일과 D-day까지 한 번에 보여 줍니다."}</script><script type="application/ld+json">{"@context": "https://schema.org", "@type": "FAQPage", "mainEntity": [{"@type": "Question", "name": "사귄 날을 1일로 세나요?", "acceptedAnswer": {"@type": "Answer", "text": "네. 한국에서는 보통 사귀기 시작한 날을 1일째로 셉니다. 그래서 100일은 사귄 날로부터 99일 뒤입니다."}}, {"@type": "Question", "name": "1주년은 언제인가요?", "acceptedAnswer": {"@type": "Answer", "text": "주년은 일수가 아니라 같은 날짜로 셉니다. 2025년 3월 1일에 사귀었다면 1주년은 2026년 3월 1일입니다."}}, {"@type": "Question", "name": "결혼기념일도 계산할 수 있나요?", "acceptedAnswer": {"@type": "Answer", "text": "결혼한 날을 넣으면 같은 방식으로 주년과 일수를 볼 수 있습니다."}}]}</script>
+</head><body>
+<header class="top"><div class="wrap"><a class="logo" href="/">생활계산소</a></div></header>
+<main class="wrap c1"><p class="crumb"><a href="/">홈</a> › 날짜·나이</p><h1 class="th"><i class="ic">💕</i>커플 기념일 계산기</h1><div class="tool">
+ <div class="row"><label>사귄 날<input type="date" id="s" value="2026-03-01"></label></div>
+ <div class="result" id="out"></div>
+</div>
+<div class="scroll"><table id="tbl"><thead><tr><th>기념일</th><th>날짜</th><th>남은 날</th></tr></thead><tbody></tbody></table></div>
+<h2>기념일 세는 법</h2>
+<p><b>N일 기념일</b>은 사귄 날을 1일째로 세서, 사귄 날 + (N−1)일입니다. <b>주년</b>은 1년 뒤 같은 날짜입니다. 그래서 '365일'과 '1주년'은 하루 차이가 납니다(사귄 날 포함 365일째 = 1주년 하루 전).</p>
+<p class="note">흔히 챙기는 기념일: 22일(투투), 50일, 100일, 200일, 300일, 1주년, 500일, 1000일.</p>
+<script src="/app.js"></script>
+<script>
+function calc(){const s=d($('#s').value);if(isNaN(s))return;const t=today(),nth=diffDays(s,t)+1;
+  $('#out').innerHTML=nth>0?`<div class="big">오늘은 ${nth.toLocaleString()}일째</div><p>${fmt(s)}부터</p>`:`<div class="big">${dday(diffDays(t,s))}</div><p>시작 전입니다</p>`;
+  const rows=[];[22,50,100,200,300,400,500,600,700,800,900,1000,1500,2000,3000].forEach(n=>rows.push([n+'일',addDays(s,n-1)]));
+  for(let y=1;y<=10;y++){const x=new Date(s.getFullYear()+y,s.getMonth(),s.getDate());rows.push([y+'주년',x]);}
+  rows.sort((a,b)=>a[1]-b[1]);
+  $('#tbl tbody').innerHTML=rows.map(([k,x])=>{const r=diffDays(t,x);return `<tr${r>=0&&r<60?' style="font-weight:700"':''}><td>${k}</td><td>${fmt(x)}</td><td>${r<0?'지남':dday(r)}</td></tr>`}).join('');}
+$('#s').oninput=calc;calc();
+</script>
+<section class="faq"><h2>자주 묻는 질문</h2><details><summary>사귄 날을 1일로 세나요?</summary><p>네. 한국에서는 보통 사귀기 시작한 날을 1일째로 셉니다. 그래서 100일은 사귄 날로부터 99일 뒤입니다.</p></details><details><summary>1주년은 언제인가요?</summary><p>주년은 일수가 아니라 같은 날짜로 셉니다. 2025년 3월 1일에 사귀었다면 1주년은 2026년 3월 1일입니다.</p></details><details><summary>결혼기념일도 계산할 수 있나요?</summary><p>결혼한 날을 넣으면 같은 방식으로 주년과 일수를 볼 수 있습니다.</p></details></section><section><h2>다른 계산기</h2><div class="grid"><a class="card c1" href="/age.html" data-k="만 나이 계산기 만 나이·연 나이·띠·다음 생일"><i class="ic">🎂</i><span class="tx"><b>만 나이 계산기</b><span>만 나이·연 나이·띠·다음 생일</span></span></a><a class="card c1" href="/dday.html" data-k="디데이 · 날짜 계산기 두 날짜 사이 일수, N일 후 날짜"><i class="ic">📅</i><span class="tx"><b>디데이 · 날짜 계산기</b><span>두 날짜 사이 일수, N일 후 날짜</span></span></a><a class="card c1" href="/discharge.html" data-k="전역일 계산기 입대일로 전역 예정일·진행률"><i class="ic">🎖️</i><span class="tx"><b>전역일 계산기</b><span>입대일로 전역 예정일·진행률</span></span></a><a class="card c1" href="/lunar.html" data-k="양력 ↔ 음력 변환기 음력 생일 양력 날짜, 윤달"><i class="ic">🌙</i><span class="tx"><b>양력 ↔ 음력 변환기</b><span>음력 생일 양력 날짜, 윤달</span></span></a><a class="card c1" href="/time-calc.html" data-k="시간 계산기 시각 차이, 시간 더하기·빼기"><i class="ic">🕒</i><span class="tx"><b>시간 계산기</b><span>시각 차이, 시간 더하기·빼기</span></span></a><a class="card c4" href="/bmr.html" data-k="기초대사량 계산기 BMR·하루 필요 칼로리"><i class="ic">🔥</i><span class="tx"><b>기초대사량 계산기</b><span>BMR·하루 필요 칼로리</span></span></a></div></section><p class="updated">최종 확인: 2026-10-17</p></main><footer class="foot"><div class="wrap">
+<nav><a href="/about.html">소개</a><a href="/privacy.html">개인정보처리방침</a><a href="/terms.html">이용약관</a><a href="/contact.html">문의</a></nav>
+<p>© 2026 생활계산소. 계산 결과는 참고용이며, 중요한 결정은 공식 기관·전문가에게 확인하세요.</p>
+</div></footer>
+</body></html>

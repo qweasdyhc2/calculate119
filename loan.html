@@ -1,0 +1,46 @@
+<!doctype html>
+<html lang="ko"><head>
+<meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1">
+<title>대출 이자 계산기 - 원리금균등·원금균등·만기일시 상환</title>
+<meta name="description" content="대출 금액, 연 이율, 기간을 넣으면 원리금균등·원금균등·만기일시 상환별 월 상환액과 총 이자, 월별 상환 스케줄을 계산합니다.">
+<link rel="canonical" href="https://calculate119.com/loan.html">
+<meta property="og:type" content="website"><meta property="og:site_name" content="생활계산소">
+<meta property="og:title" content="대출 이자 계산기 - 원리금균등·원금균등·만기일시 상환"><meta property="og:description" content="대출 금액, 연 이율, 기간을 넣으면 원리금균등·원금균등·만기일시 상환별 월 상환액과 총 이자, 월별 상환 스케줄을 계산합니다.">
+<meta property="og:url" content="https://calculate119.com/loan.html"><meta property="og:locale" content="ko_KR">
+<link rel="icon" href="/favicon.svg" type="image/svg+xml">
+<link rel="stylesheet" href="/style.css">
+<script type="application/ld+json">{"@context": "https://schema.org", "@type": "WebApplication", "name": "대출 이자 계산기", "url": "https://calculate119.com/loan.html", "applicationCategory": "UtilitiesApplication", "operatingSystem": "Any", "inLanguage": "ko", "offers": {"@type": "Offer", "price": "0", "priceCurrency": "KRW"}, "description": "대출 금액, 연 이율, 기간을 넣으면 원리금균등·원금균등·만기일시 상환별 월 상환액과 총 이자, 월별 상환 스케줄을 계산합니다."}</script><script type="application/ld+json">{"@context": "https://schema.org", "@type": "FAQPage", "mainEntity": [{"@type": "Question", "name": "원리금균등과 원금균등 중 뭐가 이자가 적나요?", "acceptedAnswer": {"@type": "Answer", "text": "원금균등이 총 이자가 더 적습니다. 원금을 빨리 갚아 남은 원금이 빨리 줄기 때문입니다. 대신 초반 월 상환액이 더 큽니다."}}, {"@type": "Question", "name": "원리금균등은 어떤 사람에게 맞나요?", "acceptedAnswer": {"@type": "Answer", "text": "매달 같은 금액을 내서 예산 관리가 쉽습니다. 월 소득이 일정한 직장인이 많이 선택합니다."}}, {"@type": "Question", "name": "실제 은행 금액과 왜 다를 수 있나요?", "acceptedAnswer": {"@type": "Answer", "text": "은행은 일할 계산, 원 단위 절사, 변동금리, 중도상환수수료 등을 적용합니다. 이 계산기는 매달 같은 이율을 가정한 대략값입니다."}}]}</script>
+</head><body>
+<header class="top"><div class="wrap"><a class="logo" href="/">생활계산소</a></div></header>
+<main class="wrap c3"><p class="crumb"><a href="/">홈</a> › 돈·숫자</p><h1 class="th"><i class="ic">🏦</i>대출 이자 계산기</h1><div class="tool">
+ <div class="row"><label>대출 금액 (원)<input class="money" id="p" value="100,000,000" inputmode="numeric"></label><label>연 이율 (%)<input type="number" id="r" value="4.5" step="0.01"></label></div>
+ <div class="row"><label>기간 (개월)<input type="number" id="n" value="360"></label><label>상환 방식<select id="k"><option value="eq">원리금균등</option><option value="pr">원금균등</option><option value="bl">만기일시</option></select></label></div>
+ <div class="result" id="out"></div>
+</div>
+<div class="scroll"><table id="tbl"></table></div>
+<p><button class="ghost" id="more" hidden>전체 회차 보기</button></p>
+<h2>상환 방식 세 가지</h2>
+<ul><li><b>원리금균등</b>: 매달 원금+이자 합계가 같습니다. 초반엔 이자 비중이 크고 갈수록 원금 비중이 커집니다.</li>
+<li><b>원금균등</b>: 매달 같은 원금을 갚고, 남은 원금에 대한 이자를 더합니다. 처음에 가장 많이 내고 점점 줄어듭니다.</li>
+<li><b>만기일시</b>: 매달 이자만 내다가 마지막 달에 원금을 한꺼번에 갚습니다. 총 이자가 가장 큽니다.</li></ul>
+<p>원리금균등 월 상환액 = 대출금 × 월이율 × (1+월이율)<sup>개월</sup> ÷ ((1+월이율)<sup>개월</sup> − 1). 월이율은 연 이율 ÷ 12입니다.</p>
+<script src="/app.js"></script>
+<script>
+let all=false;
+function calc(){const P=num($('#p')),i=num($('#r'))/1200,n=Math.max(1,Math.round(num($('#n')))),k=$('#k').value;
+  const rows=[];let bal=P;
+  const pay=i?P*i*Math.pow(1+i,n)/(Math.pow(1+i,n)-1):P/n;
+  for(let m=1;m<=n;m++){const it=bal*i;let pr=k==='eq'?pay-it:k==='pr'?P/n:(m===n?bal:0);bal-=pr;rows.push([m,pr+it,pr,it,Math.max(bal,0)]);}
+  const ti=rows.reduce((s,r)=>s+r[3],0);
+  $('#out').innerHTML=`<div class="stats"><div><b>${won(rows[0][1])}원</b><span>첫 달 상환액</span></div><div><b>${won(ti)}원</b><span>총 이자</span></div><div><b>${won(P+ti)}원</b><span>총 상환액</span></div><div><b>${won(rows[n-1][1])}원</b><span>마지막 달</span></div></div>`;
+  const show=all?rows:rows.slice(0,12);
+  $('#tbl').innerHTML='<tr><th>회차</th><th>상환액</th><th>원금</th><th>이자</th><th>잔액</th></tr>'+show.map(r=>`<tr><td>${r[0]}</td>${r.slice(1).map(x=>`<td>${won(x)}</td>`).join('')}</tr>`).join('');
+  $('#more').hidden=all||n<=12;}
+$('#more').onclick=()=>{all=true;calc()};
+document.querySelectorAll('input,select').forEach(x=>x.addEventListener('input',calc));calc();
+</script>
+<section class="faq"><h2>자주 묻는 질문</h2><details><summary>원리금균등과 원금균등 중 뭐가 이자가 적나요?</summary><p>원금균등이 총 이자가 더 적습니다. 원금을 빨리 갚아 남은 원금이 빨리 줄기 때문입니다. 대신 초반 월 상환액이 더 큽니다.</p></details><details><summary>원리금균등은 어떤 사람에게 맞나요?</summary><p>매달 같은 금액을 내서 예산 관리가 쉽습니다. 월 소득이 일정한 직장인이 많이 선택합니다.</p></details><details><summary>실제 은행 금액과 왜 다를 수 있나요?</summary><p>은행은 일할 계산, 원 단위 절사, 변동금리, 중도상환수수료 등을 적용합니다. 이 계산기는 매달 같은 이율을 가정한 대략값입니다.</p></details></section><section><h2>다른 계산기</h2><div class="grid"><a class="card c3" href="/vat.html" data-k="부가세 계산기 공급가액 ↔ 합계금액, VAT 10%"><i class="ic">🧾</i><span class="tx"><b>부가세 계산기</b><span>공급가액 ↔ 합계금액, VAT 10%</span></span></a><a class="card c3" href="/annual-leave.html" data-k="연차 · 연차수당 계산기 입사일 기준 연차 일수, 연차수당"><i class="ic">🏖️</i><span class="tx"><b>연차 · 연차수당 계산기</b><span>입사일 기준 연차 일수, 연차수당</span></span></a><a class="card c3" href="/installment.html" data-k="할부 계산기 카드 할부 수수료·월 납부액"><i class="ic">💳</i><span class="tx"><b>할부 계산기</b><span>카드 할부 수수료·월 납부액</span></span></a><a class="card c3" href="/margin.html" data-k="마진율 계산기 마진율·마크업, 목표 판매가"><i class="ic">📈</i><span class="tx"><b>마진율 계산기</b><span>마진율·마크업, 목표 판매가</span></span></a><a class="card c3" href="/percent.html" data-k="퍼센트 계산기 비율·증감률·할인가"><i class="ic">％</i><span class="tx"><b>퍼센트 계산기</b><span>비율·증감률·할인가</span></span></a><a class="card c3" href="/lotto.html" data-k="로또 실수령액 · 세금 계산기 당첨금 세금·실수령액"><i class="ic">🍀</i><span class="tx"><b>로또 실수령액 · 세금 계산기</b><span>당첨금 세금·실수령액</span></span></a></div></section><p class="updated">최종 확인: 2026-10-17</p></main><footer class="foot"><div class="wrap">
+<nav><a href="/about.html">소개</a><a href="/privacy.html">개인정보처리방침</a><a href="/terms.html">이용약관</a><a href="/contact.html">문의</a></nav>
+<p>© 2026 생활계산소. 계산 결과는 참고용이며, 중요한 결정은 공식 기관·전문가에게 확인하세요.</p>
+</div></footer>
+</body></html>

@@ -1,0 +1,43 @@
+<!doctype html>
+<html lang="ko"><head>
+<meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1">
+<title>시간 계산기 - 시간 더하기·빼기, 두 시각 사이 시간</title>
+<meta name="description" content="두 시각 사이가 몇 시간 몇 분인지, 여러 시간을 더하고 빼면 총 몇 시간인지 계산합니다. 자정을 넘기는 근무·수면 시간도 자동 처리.">
+<link rel="canonical" href="https://calculate119.com/time-calc.html">
+<meta property="og:type" content="website"><meta property="og:site_name" content="생활계산소">
+<meta property="og:title" content="시간 계산기 - 시간 더하기·빼기, 두 시각 사이 시간"><meta property="og:description" content="두 시각 사이가 몇 시간 몇 분인지, 여러 시간을 더하고 빼면 총 몇 시간인지 계산합니다. 자정을 넘기는 근무·수면 시간도 자동 처리.">
+<meta property="og:url" content="https://calculate119.com/time-calc.html"><meta property="og:locale" content="ko_KR">
+<link rel="icon" href="/favicon.svg" type="image/svg+xml">
+<link rel="stylesheet" href="/style.css">
+<script type="application/ld+json">{"@context": "https://schema.org", "@type": "WebApplication", "name": "시간 계산기", "url": "https://calculate119.com/time-calc.html", "applicationCategory": "UtilitiesApplication", "operatingSystem": "Any", "inLanguage": "ko", "offers": {"@type": "Offer", "price": "0", "priceCurrency": "KRW"}, "description": "두 시각 사이가 몇 시간 몇 분인지, 여러 시간을 더하고 빼면 총 몇 시간인지 계산합니다. 자정을 넘기는 근무·수면 시간도 자동 처리."}</script><script type="application/ld+json">{"@context": "https://schema.org", "@type": "FAQPage", "mainEntity": [{"@type": "Question", "name": "밤 10시부터 다음 날 오전 7시까지는 몇 시간인가요?", "acceptedAnswer": {"@type": "Answer", "text": "9시간입니다. 끝 시각이 시작 시각보다 이르면 자정을 넘긴 것으로 보고 하루를 더해 계산합니다."}}, {"@type": "Question", "name": "1시간 30분은 소수로 몇 시간인가요?", "acceptedAnswer": {"@type": "Answer", "text": "1.5시간입니다. 분을 60으로 나누면 소수 시간이 됩니다. 시급 계산할 때 자주 씁니다."}}, {"@type": "Question", "name": "여러 시간을 한꺼번에 더할 수 있나요?", "acceptedAnswer": {"@type": "Answer", "text": "'시간 더하기·빼기'에서 한 줄에 하나씩 1:30, 2:45처럼 적으면 모두 더합니다. 앞에 -를 붙이면 뺍니다."}}]}</script>
+</head><body>
+<header class="top"><div class="wrap"><a class="logo" href="/">생활계산소</a></div></header>
+<main class="wrap c1"><p class="crumb"><a href="/">홈</a> › 날짜·나이</p><h1 class="th"><i class="ic">🕒</i>시간 계산기</h1><div class="tool">
+ <div class="tabs"><button class="on" data-m="diff">두 시각 사이</button><button data-m="sum">시간 더하기·빼기</button></div>
+ <div id="diff"><div class="row"><label>시작 시각<input type="time" id="a" value="09:00"></label><label>끝 시각<input type="time" id="b" value="18:00"></label><label>쉬는 시간 (분)<input type="number" id="br" value="60" min="0"></label></div></div>
+ <div id="sum" hidden><div class="row"><label>한 줄에 하나씩 (시:분 또는 시:분:초, 빼려면 앞에 -)<textarea id="list" style="min-height:140px">1:30
+2:45
+0:50
+-0:20</textarea></label></div></div>
+ <div class="result" id="out"></div>
+</div>
+<h2>시간 계산 요령</h2>
+<ul><li>시간은 60진법이라 1:50 + 0:20 = 2:10 입니다(2:70이 아님).</li><li>소수 시간 = 시 + 분 ÷ 60. 예) 7시간 45분 = 7.75시간.</li><li>근무 시간에서 법정 휴게시간은 4시간 근무에 30분, 8시간 근무에 1시간 이상입니다(근로기준법 제54조).</li></ul>
+<script src="/app.js"></script>
+<script>
+let mode='diff';
+document.querySelectorAll('.tabs button').forEach(b=>b.onclick=()=>{mode=b.dataset.m;document.querySelectorAll('.tabs button').forEach(x=>x.classList.toggle('on',x===b));$('#diff').hidden=mode!=='diff';$('#sum').hidden=mode!=='sum';calc();});
+const toMin=s=>{const[h,m]=s.split(':').map(Number);return h*60+m;};
+function hm(sec){const neg=sec<0;sec=Math.abs(Math.round(sec));const h=Math.floor(sec/3600),m=Math.floor(sec%3600/60),s=sec%60;return (neg?'−':'')+`${h}시간 ${m}분`+(s?` ${s}초`:'');}
+function calc(){let sec;
+  if(mode==='diff'){if(!$('#a').value||!$('#b').value)return;let m=toMin($('#b').value)-toMin($('#a').value);const over=m<0;if(over)m+=1440;sec=(m-(+$('#br').value||0))*60;
+    $('#out').innerHTML=`<div class="big">${hm(sec)}</div><p>${over?'자정을 넘긴 시간으로 계산 · ':''}소수로 ${(sec/3600).toFixed(2)}시간 · 쉬는 시간 ${+$('#br').value||0}분 제외</p>`;}
+  else{sec=0;const bad=[];$('#list').value.split('\n').map(s=>s.trim()).filter(Boolean).forEach(l=>{const neg=l.startsWith('-'),p=l.replace(/^[-+]/,'').split(':').map(Number);if(p.some(isNaN)||p.length<2||p.length>3){bad.push(l);return;}const v=p[0]*3600+p[1]*60+(p[2]||0);sec+=neg?-v:v;});
+    $('#out').innerHTML=`<div class="big">${hm(sec)}</div><p>소수로 ${(sec/3600).toFixed(2)}시간 · 총 ${Math.round(sec/60).toLocaleString()}분${bad.length?` · 읽지 못한 줄: ${bad.join(', ').replace(/</g,'&lt;')}`:''}</p>`;}}
+document.querySelectorAll('input,textarea').forEach(i=>i.addEventListener('input',calc));calc();
+</script>
+<section class="faq"><h2>자주 묻는 질문</h2><details><summary>밤 10시부터 다음 날 오전 7시까지는 몇 시간인가요?</summary><p>9시간입니다. 끝 시각이 시작 시각보다 이르면 자정을 넘긴 것으로 보고 하루를 더해 계산합니다.</p></details><details><summary>1시간 30분은 소수로 몇 시간인가요?</summary><p>1.5시간입니다. 분을 60으로 나누면 소수 시간이 됩니다. 시급 계산할 때 자주 씁니다.</p></details><details><summary>여러 시간을 한꺼번에 더할 수 있나요?</summary><p>&#x27;시간 더하기·빼기&#x27;에서 한 줄에 하나씩 1:30, 2:45처럼 적으면 모두 더합니다. 앞에 -를 붙이면 뺍니다.</p></details></section><section><h2>다른 계산기</h2><div class="grid"><a class="card c1" href="/age.html" data-k="만 나이 계산기 만 나이·연 나이·띠·다음 생일"><i class="ic">🎂</i><span class="tx"><b>만 나이 계산기</b><span>만 나이·연 나이·띠·다음 생일</span></span></a><a class="card c1" href="/dday.html" data-k="디데이 · 날짜 계산기 두 날짜 사이 일수, N일 후 날짜"><i class="ic">📅</i><span class="tx"><b>디데이 · 날짜 계산기</b><span>두 날짜 사이 일수, N일 후 날짜</span></span></a><a class="card c1" href="/couple.html" data-k="커플 기념일 계산기 사귄 날로 100일·1주년 날짜"><i class="ic">💕</i><span class="tx"><b>커플 기념일 계산기</b><span>사귄 날로 100일·1주년 날짜</span></span></a><a class="card c1" href="/discharge.html" data-k="전역일 계산기 입대일로 전역 예정일·진행률"><i class="ic">🎖️</i><span class="tx"><b>전역일 계산기</b><span>입대일로 전역 예정일·진행률</span></span></a><a class="card c1" href="/lunar.html" data-k="양력 ↔ 음력 변환기 음력 생일 양력 날짜, 윤달"><i class="ic">🌙</i><span class="tx"><b>양력 ↔ 음력 변환기</b><span>음력 생일 양력 날짜, 윤달</span></span></a><a class="card c4" href="/bmr.html" data-k="기초대사량 계산기 BMR·하루 필요 칼로리"><i class="ic">🔥</i><span class="tx"><b>기초대사량 계산기</b><span>BMR·하루 필요 칼로리</span></span></a></div></section><p class="updated">최종 확인: 2026-10-17</p></main><footer class="foot"><div class="wrap">
+<nav><a href="/about.html">소개</a><a href="/privacy.html">개인정보처리방침</a><a href="/terms.html">이용약관</a><a href="/contact.html">문의</a></nav>
+<p>© 2026 생활계산소. 계산 결과는 참고용이며, 중요한 결정은 공식 기관·전문가에게 확인하세요.</p>
+</div></footer>
+</body></html>

@@ -1,0 +1,50 @@
+<!doctype html>
+<html lang="ko"><head>
+<meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1">
+<title>랜덤 뽑기 - 랜덤 숫자 뽑기 · 이름 뽑기 (중복 없이)</title>
+<meta name="description" content="범위를 정해 랜덤 숫자를 뽑거나, 이름 목록에서 원하는 수만큼 무작위로 뽑습니다. 중복 제외, 순서 섞기 지원. 경품 추첨·발표 순서 정하기에.">
+<link rel="canonical" href="https://calculate119.com/random.html">
+<meta property="og:type" content="website"><meta property="og:site_name" content="생활계산소">
+<meta property="og:title" content="랜덤 뽑기 - 랜덤 숫자 뽑기 · 이름 뽑기 (중복 없이)"><meta property="og:description" content="범위를 정해 랜덤 숫자를 뽑거나, 이름 목록에서 원하는 수만큼 무작위로 뽑습니다. 중복 제외, 순서 섞기 지원. 경품 추첨·발표 순서 정하기에.">
+<meta property="og:url" content="https://calculate119.com/random.html"><meta property="og:locale" content="ko_KR">
+<link rel="icon" href="/favicon.svg" type="image/svg+xml">
+<link rel="stylesheet" href="/style.css">
+<script type="application/ld+json">{"@context": "https://schema.org", "@type": "WebApplication", "name": "랜덤 뽑기", "url": "https://calculate119.com/random.html", "applicationCategory": "UtilitiesApplication", "operatingSystem": "Any", "inLanguage": "ko", "offers": {"@type": "Offer", "price": "0", "priceCurrency": "KRW"}, "description": "범위를 정해 랜덤 숫자를 뽑거나, 이름 목록에서 원하는 수만큼 무작위로 뽑습니다. 중복 제외, 순서 섞기 지원. 경품 추첨·발표 순서 정하기에."}</script><script type="application/ld+json">{"@context": "https://schema.org", "@type": "FAQPage", "mainEntity": [{"@type": "Question", "name": "정말 무작위인가요?", "acceptedAnswer": {"@type": "Answer", "text": "브라우저가 제공하는 암호학적 난수 생성기(crypto.getRandomValues)를 씁니다. 일반 Math.random보다 예측하기 어렵습니다."}}, {"@type": "Question", "name": "같은 숫자가 두 번 나오지 않게 할 수 있나요?", "acceptedAnswer": {"@type": "Answer", "text": "'중복 없이'를 켜면 한 번 나온 숫자는 다시 나오지 않습니다. 이때 뽑는 개수는 범위 안의 숫자 개수보다 많을 수 없습니다."}}, {"@type": "Question", "name": "추첨 결과를 증명할 수 있나요?", "acceptedAnswer": {"@type": "Answer", "text": "결과 화면을 캡처하거나 화면 공유로 함께 보면서 뽑는 것을 권합니다. 이 사이트는 결과를 저장하지 않습니다."}}]}</script>
+</head><body>
+<header class="top"><div class="wrap"><a class="logo" href="/">생활계산소</a></div></header>
+<main class="wrap c6"><p class="crumb"><a href="/">홈</a> › 도구·놀이</p><h1 class="th"><i class="ic">🎲</i>랜덤 뽑기</h1><div class="tool">
+ <div class="tabs"><button class="on" data-m="num">숫자 뽑기</button><button data-m="name">이름 뽑기</button></div>
+ <div id="num"><div class="row"><label>최솟값<input type="number" id="lo" value="1"></label><label>최댓값<input type="number" id="hi" value="45"></label><label>개수<input type="number" id="cnt" value="6" min="1"></label></div>
+  <label class="note"><input type="checkbox" id="uniq" checked style="width:auto"> 중복 없이</label> <label class="note"><input type="checkbox" id="sort" checked style="width:auto"> 작은 수부터 정렬</label></div>
+ <div id="name" hidden><div class="row"><label>후보 (한 줄에 하나 또는 쉼표)<textarea id="cand" style="min-height:120px">김철수
+이영희
+박민수
+최지은
+정다은</textarea></label></div><div class="row"><label>뽑을 수<input type="number" id="pick" value="1" min="1"></label></div></div>
+ <button id="go">뽑기</button>
+ <div class="result" id="out"></div>
+</div>
+<h2>이렇게 써요</h2>
+<ul><li><b>숫자 뽑기</b>: 1~45에서 6개를 뽑으면 로또 번호처럼 쓸 수 있고, 1~30에서 1개를 뽑으면 출석번호 추첨이 됩니다.</li><li><b>이름 뽑기</b>: 이름을 붙여 넣고 뽑을 수를 정하면 경품 당첨자나 발표 순서를 바로 정할 수 있습니다. 뽑을 수를 전체 인원으로 하면 순서 섞기가 됩니다.</li></ul>
+<p class="note">로또 번호로 쓰는 경우에도 당첨 확률은 어떤 방법이든 똑같습니다(1등 약 814만 분의 1).</p>
+<script src="/app.js"></script>
+<script>
+let mode='num';const rnd=n=>crypto.getRandomValues(new Uint32Array(1))[0]%n;
+document.querySelectorAll('.tabs button').forEach(b=>b.onclick=()=>{mode=b.dataset.m;document.querySelectorAll('.tabs button').forEach(x=>x.classList.toggle('on',x===b));$('#num').hidden=mode!=='num';$('#name').hidden=mode!=='name';$('#out').innerHTML='';});
+function shuffle(a){for(let i=a.length-1;i>0;i--){const j=rnd(i+1);[a[i],a[j]]=[a[j],a[i]];}return a;}
+const ball=v=>`<span style="display:inline-grid;place-items:center;min-width:46px;height:46px;padding:0 10px;margin:4px;border-radius:23px;background:var(--acc);color:var(--acc-ink);font-weight:800;font-size:18px">${v}</span>`;
+$('#go').onclick=()=>{let r;
+  if(mode==='num'){const lo=Math.ceil(+$('#lo').value),hi=Math.floor(+$('#hi').value),c=Math.max(1,+$('#cnt').value|0),range=hi-lo+1;
+    if(range<1){$('#out').textContent='최댓값이 최솟값보다 커야 해요.';return;}
+    if($('#uniq').checked){if(c>range){$('#out').textContent=`중복 없이 뽑으면 최대 ${range}개까지 가능해요.`;return;}
+      const s=new Set();while(s.size<c)s.add(lo+rnd(range));r=[...s];}else r=Array.from({length:c},()=>lo+rnd(range));
+    if($('#sort').checked)r.sort((a,b)=>a-b);}
+  else{const a=$('#cand').value.split(/[\n,]/).map(s=>s.trim()).filter(Boolean),c=Math.max(1,+$('#pick').value|0);
+    if(!a.length){$('#out').textContent='후보를 넣어 주세요.';return;}r=shuffle(a).slice(0,Math.min(c,a.length)).map((v,i)=>`${i+1}. ${v.replace(/</g,'&lt;')}`);}
+  $('#out').innerHTML=r.map(ball).join('');};
+</script>
+<section class="faq"><h2>자주 묻는 질문</h2><details><summary>정말 무작위인가요?</summary><p>브라우저가 제공하는 암호학적 난수 생성기(crypto.getRandomValues)를 씁니다. 일반 Math.random보다 예측하기 어렵습니다.</p></details><details><summary>같은 숫자가 두 번 나오지 않게 할 수 있나요?</summary><p>&#x27;중복 없이&#x27;를 켜면 한 번 나온 숫자는 다시 나오지 않습니다. 이때 뽑는 개수는 범위 안의 숫자 개수보다 많을 수 없습니다.</p></details><details><summary>추첨 결과를 증명할 수 있나요?</summary><p>결과 화면을 캡처하거나 화면 공유로 함께 보면서 뽑는 것을 권합니다. 이 사이트는 결과를 저장하지 않습니다.</p></details></section><section><h2>다른 계산기</h2><div class="grid"><a class="card c6" href="/ladder.html" data-k="사다리타기 이름·결과 넣고 바로 하는 사다리 게임"><i class="ic">🪜</i><span class="tx"><b>사다리타기</b><span>이름·결과 넣고 바로 하는 사다리 게임</span></span></a><a class="card c6" href="/timer.html" data-k="타이머 · 스톱워치 알람 타이머, 랩 스톱워치"><i class="ic">⏱️</i><span class="tx"><b>타이머 · 스톱워치</b><span>알람 타이머, 랩 스톱워치</span></span></a><a class="card c1" href="/age.html" data-k="만 나이 계산기 만 나이·연 나이·띠·다음 생일"><i class="ic">🎂</i><span class="tx"><b>만 나이 계산기</b><span>만 나이·연 나이·띠·다음 생일</span></span></a><a class="card c4" href="/bmr.html" data-k="기초대사량 계산기 BMR·하루 필요 칼로리"><i class="ic">🔥</i><span class="tx"><b>기초대사량 계산기</b><span>BMR·하루 필요 칼로리</span></span></a><a class="card c5" href="/car-tax.html" data-k="자동차세 계산기 배기량·연식별 연 자동차세"><i class="ic">🚗</i><span class="tx"><b>자동차세 계산기</b><span>배기량·연식별 연 자동차세</span></span></a><a class="card c5" href="/car-loan.html" data-k="자동차 할부 계산기 차 할부 월 납입금·총 이자"><i class="ic">🚙</i><span class="tx"><b>자동차 할부 계산기</b><span>차 할부 월 납입금·총 이자</span></span></a></div></section><p class="updated">최종 확인: 2026-10-17</p></main><footer class="foot"><div class="wrap">
+<nav><a href="/about.html">소개</a><a href="/privacy.html">개인정보처리방침</a><a href="/terms.html">이용약관</a><a href="/contact.html">문의</a></nav>
+<p>© 2026 생활계산소. 계산 결과는 참고용이며, 중요한 결정은 공식 기관·전문가에게 확인하세요.</p>
+</div></footer>
+</body></html>

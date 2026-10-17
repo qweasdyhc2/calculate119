@@ -1,0 +1,61 @@
+<!doctype html>
+<html lang="ko"><head>
+<meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1">
+<title>타이머 · 스톱워치 - 온라인 타이머 (알람 소리, 뽀모도로 25분)</title>
+<meta name="description" content="설치 없이 쓰는 온라인 타이머와 스톱워치. 1분·3분·5분·25분 버튼, 끝나면 알람 소리, 랩 기록까지. 공부·운동·요리에.">
+<link rel="canonical" href="https://calculate119.com/timer.html">
+<meta property="og:type" content="website"><meta property="og:site_name" content="생활계산소">
+<meta property="og:title" content="타이머 · 스톱워치 - 온라인 타이머 (알람 소리, 뽀모도로 25분)"><meta property="og:description" content="설치 없이 쓰는 온라인 타이머와 스톱워치. 1분·3분·5분·25분 버튼, 끝나면 알람 소리, 랩 기록까지. 공부·운동·요리에.">
+<meta property="og:url" content="https://calculate119.com/timer.html"><meta property="og:locale" content="ko_KR">
+<link rel="icon" href="/favicon.svg" type="image/svg+xml">
+<link rel="stylesheet" href="/style.css">
+<script type="application/ld+json">{"@context": "https://schema.org", "@type": "WebApplication", "name": "타이머 · 스톱워치", "url": "https://calculate119.com/timer.html", "applicationCategory": "UtilitiesApplication", "operatingSystem": "Any", "inLanguage": "ko", "offers": {"@type": "Offer", "price": "0", "priceCurrency": "KRW"}, "description": "설치 없이 쓰는 온라인 타이머와 스톱워치. 1분·3분·5분·25분 버튼, 끝나면 알람 소리, 랩 기록까지. 공부·운동·요리에."}</script><script type="application/ld+json">{"@context": "https://schema.org", "@type": "FAQPage", "mainEntity": [{"@type": "Question", "name": "다른 탭을 보고 있어도 타이머가 가나요?", "acceptedAnswer": {"@type": "Answer", "text": "네. 시작 시각을 기준으로 남은 시간을 계산하기 때문에 다른 탭에 있어도 정확합니다. 끝나면 소리가 나고 탭 제목이 바뀝니다."}}, {"@type": "Question", "name": "알람 소리가 안 나요.", "acceptedAnswer": {"@type": "Answer", "text": "휴대폰 무음 모드나 브라우저의 자동재생 제한 때문일 수 있습니다. 시작 버튼을 한 번 누르면 소리가 허용되고, 기기 볼륨도 확인해 주세요."}}, {"@type": "Question", "name": "뽀모도로 타이머는 어떻게 쓰나요?", "acceptedAnswer": {"@type": "Answer", "text": "25분 집중 → 5분 휴식을 한 세트로 반복하는 공부법입니다. 25분 버튼으로 집중하고, 끝나면 5분 버튼으로 쉬세요."}}]}</script>
+</head><body>
+<header class="top"><div class="wrap"><a class="logo" href="/">생활계산소</a></div></header>
+<main class="wrap c6"><p class="crumb"><a href="/">홈</a> › 도구·놀이</p><h1 class="th"><i class="ic">⏱️</i>타이머 · 스톱워치</h1><div class="tool">
+ <div class="tabs"><button class="on" data-m="t">타이머</button><button data-m="s">스톱워치</button></div>
+ <div id="t">
+  <div id="tdisp" class="big" style="font-size:64px;text-align:center;font-variant-numeric:tabular-nums;margin:8px 0">05:00</div>
+  <div class="chips" style="justify-content:center;margin-bottom:12px" id="presets"></div>
+  <div class="row"><label>시<input type="number" id="hh" value="0" min="0"></label><label>분<input type="number" id="mm" value="5" min="0"></label><label>초<input type="number" id="ss" value="0" min="0"></label></div>
+  <div style="display:flex;gap:8px;justify-content:center"><button id="tgo">시작</button><button class="ghost" id="treset">초기화</button></div>
+ </div>
+ <div id="s" hidden>
+  <div id="sdisp" class="big" style="font-size:56px;text-align:center;font-variant-numeric:tabular-nums;margin:8px 0">00:00.00</div>
+  <div style="display:flex;gap:8px;justify-content:center"><button id="sgo">시작</button><button class="ghost" id="slap">랩</button><button class="ghost" id="sreset">초기화</button></div>
+  <ol id="laps" style="font-variant-numeric:tabular-nums"></ol>
+ </div>
+</div>
+<h2>이럴 때 쓰세요</h2>
+<ul><li><b>공부</b>: 25분 집중·5분 휴식(뽀모도로), 시험 시간 맞춰 문제 풀기</li><li><b>운동</b>: 플랭크, 인터벌, 휴식 시간 재기</li><li><b>요리</b>: 라면 4분, 달걀 반숙 7분, 파스타 9분</li><li><b>스톱워치</b>: 달리기 구간 기록, 발표 연습 시간 재기</li></ul>
+<script src="/app.js"></script>
+<script>
+const P=[[1,'1분'],[3,'3분'],[5,'5분'],[10,'10분'],[15,'15분'],[25,'25분 집중'],[30,'30분'],[60,'1시간']];
+$('#presets').innerHTML=P.map(([m,l])=>`<a href="#" class="chip" data-m="${m}">${l}</a>`).join('');
+document.querySelectorAll('.tabs button').forEach(b=>b.onclick=()=>{document.querySelectorAll('.tabs button').forEach(x=>x.classList.toggle('on',x===b));$('#t').hidden=b.dataset.m!=='t';$('#s').hidden=b.dataset.m!=='s';});
+const pad=n=>String(n).padStart(2,'0'),T0=document.title;
+function hms(ms){const s=Math.ceil(ms/1000),h=Math.floor(s/3600);return (h?h+':':'')+pad(Math.floor(s%3600/60))+':'+pad(s%60);}
+let total=300000,left=300000,end=0,tick=null,ac=null;
+function setT(ms){total=left=ms;$('#tdisp').textContent=hms(ms);}
+function fromInputs(){setT(((+$('#hh').value||0)*3600+(+$('#mm').value||0)*60+(+$('#ss').value||0))*1000);}
+['#hh','#mm','#ss'].forEach(i=>$(i).oninput=()=>{if(!tick)fromInputs();});
+document.querySelectorAll('#presets a').forEach(a=>a.onclick=e=>{e.preventDefault();stopT();const m=+a.dataset.m;$('#hh').value=Math.floor(m/60);$('#mm').value=m%60;$('#ss').value=0;fromInputs();startT();});
+function beep(){try{ac=ac||new (window.AudioContext||window.webkitAudioContext)();for(let i=0;i<4;i++){const o=ac.createOscillator(),g=ac.createGain();o.frequency.value=880;o.connect(g);g.connect(ac.destination);const t=ac.currentTime+i*0.45;g.gain.setValueAtTime(0.3,t);g.gain.exponentialRampToValueAtTime(0.001,t+0.35);o.start(t);o.stop(t+0.36);}}catch(e){}}
+function startT(){if(left<=0)return;try{ac=ac||new (window.AudioContext||window.webkitAudioContext)();ac.resume();}catch(e){}
+  end=performance.now()+left;$('#tgo').textContent='일시정지';
+  tick=setInterval(()=>{left=end-performance.now();if(left<=0){left=0;stopT();$('#tdisp').textContent='00:00';document.title='⏰ 시간 끝! - 타이머';beep();return;}$('#tdisp').textContent=hms(left);document.title=hms(left)+' - 타이머';},200);}
+function stopT(){clearInterval(tick);tick=null;$('#tgo').textContent='시작';}
+$('#tgo').onclick=()=>{if(tick)stopT();else{if(left<=0)fromInputs();document.title=T0;startT();}};
+$('#treset').onclick=()=>{stopT();document.title=T0;fromInputs();};
+let sStart=0,sAcc=0,sTick=null,lastLap=0;
+function sfmt(ms){const cs=Math.floor(ms/10)%100,s=Math.floor(ms/1000);return (s>=3600?Math.floor(s/3600)+':':'')+pad(Math.floor(s%3600/60))+':'+pad(s%60)+'.'+pad(cs);}
+const now=()=>sAcc+(sTick?performance.now()-sStart:0);
+$('#sgo').onclick=()=>{if(sTick){sAcc=now();clearInterval(sTick);sTick=null;$('#sgo').textContent='계속';}else{sStart=performance.now();sTick=setInterval(()=>$('#sdisp').textContent=sfmt(now()),30);$('#sgo').textContent='정지';}};
+$('#slap').onclick=()=>{if(!sTick)return;const t=now();$('#laps').insertAdjacentHTML('afterbegin',`<li>${sfmt(t)} (+${sfmt(t-lastLap)})</li>`);lastLap=t;};
+$('#sreset').onclick=()=>{clearInterval(sTick);sTick=null;sAcc=0;lastLap=0;$('#sdisp').textContent=sfmt(0);$('#laps').innerHTML='';$('#sgo').textContent='시작';};
+</script>
+<section class="faq"><h2>자주 묻는 질문</h2><details><summary>다른 탭을 보고 있어도 타이머가 가나요?</summary><p>네. 시작 시각을 기준으로 남은 시간을 계산하기 때문에 다른 탭에 있어도 정확합니다. 끝나면 소리가 나고 탭 제목이 바뀝니다.</p></details><details><summary>알람 소리가 안 나요.</summary><p>휴대폰 무음 모드나 브라우저의 자동재생 제한 때문일 수 있습니다. 시작 버튼을 한 번 누르면 소리가 허용되고, 기기 볼륨도 확인해 주세요.</p></details><details><summary>뽀모도로 타이머는 어떻게 쓰나요?</summary><p>25분 집중 → 5분 휴식을 한 세트로 반복하는 공부법입니다. 25분 버튼으로 집중하고, 끝나면 5분 버튼으로 쉬세요.</p></details></section><section><h2>다른 계산기</h2><div class="grid"><a class="card c6" href="/ladder.html" data-k="사다리타기 이름·결과 넣고 바로 하는 사다리 게임"><i class="ic">🪜</i><span class="tx"><b>사다리타기</b><span>이름·결과 넣고 바로 하는 사다리 게임</span></span></a><a class="card c6" href="/random.html" data-k="랜덤 뽑기 숫자·이름 무작위 추첨"><i class="ic">🎲</i><span class="tx"><b>랜덤 뽑기</b><span>숫자·이름 무작위 추첨</span></span></a><a class="card c1" href="/age.html" data-k="만 나이 계산기 만 나이·연 나이·띠·다음 생일"><i class="ic">🎂</i><span class="tx"><b>만 나이 계산기</b><span>만 나이·연 나이·띠·다음 생일</span></span></a><a class="card c4" href="/bmr.html" data-k="기초대사량 계산기 BMR·하루 필요 칼로리"><i class="ic">🔥</i><span class="tx"><b>기초대사량 계산기</b><span>BMR·하루 필요 칼로리</span></span></a><a class="card c5" href="/car-tax.html" data-k="자동차세 계산기 배기량·연식별 연 자동차세"><i class="ic">🚗</i><span class="tx"><b>자동차세 계산기</b><span>배기량·연식별 연 자동차세</span></span></a><a class="card c5" href="/car-loan.html" data-k="자동차 할부 계산기 차 할부 월 납입금·총 이자"><i class="ic">🚙</i><span class="tx"><b>자동차 할부 계산기</b><span>차 할부 월 납입금·총 이자</span></span></a></div></section><p class="updated">최종 확인: 2026-10-17</p></main><footer class="foot"><div class="wrap">
+<nav><a href="/about.html">소개</a><a href="/privacy.html">개인정보처리방침</a><a href="/terms.html">이용약관</a><a href="/contact.html">문의</a></nav>
+<p>© 2026 생활계산소. 계산 결과는 참고용이며, 중요한 결정은 공식 기관·전문가에게 확인하세요.</p>
+</div></footer>
+</body></html>

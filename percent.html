@@ -1,0 +1,38 @@
+<!doctype html>
+<html lang="ko"><head>
+<meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1">
+<title>퍼센트 계산기 - 몇 %인지, 증감률, 할인가 계산</title>
+<meta name="description" content="A의 B%는 얼마인지, A는 B의 몇 %인지, 증가율·감소율, 할인·인상 후 금액까지 네 가지 퍼센트 계산을 한 화면에서 합니다.">
+<link rel="canonical" href="https://calculate119.com/percent.html">
+<meta property="og:type" content="website"><meta property="og:site_name" content="생활계산소">
+<meta property="og:title" content="퍼센트 계산기 - 몇 %인지, 증감률, 할인가 계산"><meta property="og:description" content="A의 B%는 얼마인지, A는 B의 몇 %인지, 증가율·감소율, 할인·인상 후 금액까지 네 가지 퍼센트 계산을 한 화면에서 합니다.">
+<meta property="og:url" content="https://calculate119.com/percent.html"><meta property="og:locale" content="ko_KR">
+<link rel="icon" href="/favicon.svg" type="image/svg+xml">
+<link rel="stylesheet" href="/style.css">
+<script type="application/ld+json">{"@context": "https://schema.org", "@type": "WebApplication", "name": "퍼센트 계산기", "url": "https://calculate119.com/percent.html", "applicationCategory": "UtilitiesApplication", "operatingSystem": "Any", "inLanguage": "ko", "offers": {"@type": "Offer", "price": "0", "priceCurrency": "KRW"}, "description": "A의 B%는 얼마인지, A는 B의 몇 %인지, 증가율·감소율, 할인·인상 후 금액까지 네 가지 퍼센트 계산을 한 화면에서 합니다."}</script><script type="application/ld+json">{"@context": "https://schema.org", "@type": "FAQPage", "mainEntity": [{"@type": "Question", "name": "증가율은 어떻게 구하나요?", "acceptedAnswer": {"@type": "Answer", "text": "(바뀐 값 − 처음 값) ÷ 처음 값 × 100 입니다. 100에서 120이 되면 20% 증가입니다."}}, {"@type": "Question", "name": "20% 올렸다가 20% 내리면 원래대로 돌아오나요?", "acceptedAnswer": {"@type": "Answer", "text": "아니요. 100을 20% 올리면 120, 다시 20% 내리면 96입니다. 기준값이 바뀌기 때문입니다."}}, {"@type": "Question", "name": "%p(퍼센트포인트)는 뭔가요?", "acceptedAnswer": {"@type": "Answer", "text": "퍼센트끼리의 차이입니다. 금리가 3%에서 4%가 되면 1%p 올랐다고 하고, 증가율로는 약 33% 오른 것입니다."}}]}</script>
+</head><body>
+<header class="top"><div class="wrap"><a class="logo" href="/">생활계산소</a></div></header>
+<main class="wrap c3"><p class="crumb"><a href="/">홈</a> › 돈·숫자</p><h1 class="th"><i class="ic">％</i>퍼센트 계산기</h1><div class="tool">
+ <h3>① A의 B%는?</h3><div class="row"><label>A<input type="number" id="a1" value="50000"></label><label>B (%)<input type="number" id="b1" value="15"></label></div><div class="result" id="o1"></div>
+ <h3>② A는 B의 몇 %?</h3><div class="row"><label>A<input type="number" id="a2" value="30"></label><label>B<input type="number" id="b2" value="120"></label></div><div class="result" id="o2"></div>
+ <h3>③ A에서 B로 바뀌면 몇 % 증감?</h3><div class="row"><label>처음 값 A<input type="number" id="a3" value="80000"></label><label>바뀐 값 B<input type="number" id="b3" value="100000"></label></div><div class="result" id="o3"></div>
+ <h3>④ A를 B% 할인/인상하면?</h3><div class="row"><label>A<input type="number" id="a4" value="39000"></label><label>B (%)<input type="number" id="b4" value="30"></label></div><div class="result" id="o4"></div>
+</div>
+<h2>퍼센트 계산 공식</h2>
+<ul><li>A의 B% = A × B ÷ 100</li><li>A는 B의 몇 % = A ÷ B × 100</li><li>증감률 = (B − A) ÷ A × 100</li><li>할인가 = A × (1 − B ÷ 100), 인상가 = A × (1 + B ÷ 100)</li></ul>
+<p>쇼핑 할인, 연봉 인상률, 주가 등락률, 시험 점수 비율처럼 일상에서 자주 쓰는 계산입니다. 소수점은 둘째 자리까지 보여 줍니다.</p>
+<script src="/app.js"></script>
+<script>
+const f=(x)=>(Math.round(x*100)/100).toLocaleString('ko-KR');
+function calc(){const v=i=>parseFloat($('#'+i).value);
+  $('#o1').innerHTML=`<b>${f(v('a1')*v('b1')/100)}</b>`;
+  $('#o2').innerHTML=v('b2')?`<b>${f(v('a2')/v('b2')*100)}%</b>`:'B는 0이 될 수 없습니다';
+  const r=(v('b3')-v('a3'))/v('a3')*100;$('#o3').innerHTML=v('a3')?`<b>${f(Math.abs(r))}% ${r>=0?'증가':'감소'}</b> (차이 ${f(v('b3')-v('a3'))})`:'A는 0이 될 수 없습니다';
+  $('#o4').innerHTML=`할인 시 <b>${f(v('a4')*(1-v('b4')/100))}</b> (−${f(v('a4')*v('b4')/100)}) · 인상 시 <b>${f(v('a4')*(1+v('b4')/100))}</b>`;}
+document.querySelectorAll('input').forEach(i=>i.oninput=calc);calc();
+</script>
+<section class="faq"><h2>자주 묻는 질문</h2><details><summary>증가율은 어떻게 구하나요?</summary><p>(바뀐 값 − 처음 값) ÷ 처음 값 × 100 입니다. 100에서 120이 되면 20% 증가입니다.</p></details><details><summary>20% 올렸다가 20% 내리면 원래대로 돌아오나요?</summary><p>아니요. 100을 20% 올리면 120, 다시 20% 내리면 96입니다. 기준값이 바뀌기 때문입니다.</p></details><details><summary>%p(퍼센트포인트)는 뭔가요?</summary><p>퍼센트끼리의 차이입니다. 금리가 3%에서 4%가 되면 1%p 올랐다고 하고, 증가율로는 약 33% 오른 것입니다.</p></details></section><section><h2>다른 계산기</h2><div class="grid"><a class="card c3" href="/vat.html" data-k="부가세 계산기 공급가액 ↔ 합계금액, VAT 10%"><i class="ic">🧾</i><span class="tx"><b>부가세 계산기</b><span>공급가액 ↔ 합계금액, VAT 10%</span></span></a><a class="card c3" href="/annual-leave.html" data-k="연차 · 연차수당 계산기 입사일 기준 연차 일수, 연차수당"><i class="ic">🏖️</i><span class="tx"><b>연차 · 연차수당 계산기</b><span>입사일 기준 연차 일수, 연차수당</span></span></a><a class="card c3" href="/installment.html" data-k="할부 계산기 카드 할부 수수료·월 납부액"><i class="ic">💳</i><span class="tx"><b>할부 계산기</b><span>카드 할부 수수료·월 납부액</span></span></a><a class="card c3" href="/margin.html" data-k="마진율 계산기 마진율·마크업, 목표 판매가"><i class="ic">📈</i><span class="tx"><b>마진율 계산기</b><span>마진율·마크업, 목표 판매가</span></span></a><a class="card c3" href="/loan.html" data-k="대출 이자 계산기 월 상환액·총 이자·상환표"><i class="ic">🏦</i><span class="tx"><b>대출 이자 계산기</b><span>월 상환액·총 이자·상환표</span></span></a><a class="card c3" href="/lotto.html" data-k="로또 실수령액 · 세금 계산기 당첨금 세금·실수령액"><i class="ic">🍀</i><span class="tx"><b>로또 실수령액 · 세금 계산기</b><span>당첨금 세금·실수령액</span></span></a></div></section><p class="updated">최종 확인: 2026-10-17</p></main><footer class="foot"><div class="wrap">
+<nav><a href="/about.html">소개</a><a href="/privacy.html">개인정보처리방침</a><a href="/terms.html">이용약관</a><a href="/contact.html">문의</a></nav>
+<p>© 2026 생활계산소. 계산 결과는 참고용이며, 중요한 결정은 공식 기관·전문가에게 확인하세요.</p>
+</div></footer>
+</body></html>

@@ -1,0 +1,36 @@
+<!doctype html>
+<html lang="ko"><head>
+<meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1">
+<title>고양이 나이 계산기 - 사람 나이로 몇 살? 생애 단계까지</title>
+<meta name="description" content="고양이 나이를 사람 나이로 바꾸고, 새끼·청년·성묘·중년·노령 중 어느 시기인지 알려 줍니다. 국제고양이보호협회(ICC) 환산 기준.">
+<link rel="canonical" href="https://calculate119.com/cat-age.html">
+<meta property="og:type" content="website"><meta property="og:site_name" content="생활계산소">
+<meta property="og:title" content="고양이 나이 계산기 - 사람 나이로 몇 살? 생애 단계까지"><meta property="og:description" content="고양이 나이를 사람 나이로 바꾸고, 새끼·청년·성묘·중년·노령 중 어느 시기인지 알려 줍니다. 국제고양이보호협회(ICC) 환산 기준.">
+<meta property="og:url" content="https://calculate119.com/cat-age.html"><meta property="og:locale" content="ko_KR">
+<link rel="icon" href="/favicon.svg" type="image/svg+xml">
+<link rel="stylesheet" href="/style.css">
+<script type="application/ld+json">{"@context": "https://schema.org", "@type": "WebApplication", "name": "고양이 나이 계산기", "url": "https://calculate119.com/cat-age.html", "applicationCategory": "UtilitiesApplication", "operatingSystem": "Any", "inLanguage": "ko", "offers": {"@type": "Offer", "price": "0", "priceCurrency": "KRW"}, "description": "고양이 나이를 사람 나이로 바꾸고, 새끼·청년·성묘·중년·노령 중 어느 시기인지 알려 줍니다. 국제고양이보호협회(ICC) 환산 기준."}</script><script type="application/ld+json">{"@context": "https://schema.org", "@type": "FAQPage", "mainEntity": [{"@type": "Question", "name": "고양이 1살은 사람 몇 살인가요?", "acceptedAnswer": {"@type": "Answer", "text": "약 15살입니다. 2살이면 약 24살이고, 그 뒤로는 1년에 사람 나이 약 4살씩 늘어납니다."}}, {"@type": "Question", "name": "고양이는 몇 살부터 노령묘인가요?", "acceptedAnswer": {"@type": "Answer", "text": "보통 11살부터 노령기(사람 나이 약 60세)로 보고, 15살 이상은 초고령묘로 봅니다."}}, {"@type": "Question", "name": "집고양이와 길고양이 수명은 다른가요?", "acceptedAnswer": {"@type": "Answer", "text": "실내에서 사는 고양이는 평균 12~18년, 길고양이는 사고와 질병 때문에 훨씬 짧습니다."}}]}</script>
+</head><body>
+<header class="top"><div class="wrap"><a class="logo" href="/">생활계산소</a></div></header>
+<main class="wrap c4"><p class="crumb"><a href="/">홈</a> › 건강·반려</p><h1 class="th"><i class="ic">🐱</i>고양이 나이 계산기</h1><div class="tool">
+ <div class="row"><label>고양이 나이 (년)<input type="number" id="y" value="3" min="0" max="30"></label><label>개월 (추가)<input type="number" id="m" value="0" min="0" max="11"></label></div>
+ <div class="result" id="out"></div>
+</div>
+<h2>고양이 나이 환산표</h2>
+<div class="scroll"><table id="tbl"></table></div>
+<h2>고양이 생애 단계</h2>
+<ul><li><b>새끼 (0~6개월)</b>: 사람 나이 0~10세. 예방접종과 사회화 시기.</li><li><b>청년기 (7개월~2살)</b>: 사람 나이 12~24세.</li><li><b>성묘기 (3~6살)</b>: 사람 나이 28~40세. 가장 활발한 시기.</li><li><b>중년기 (7~10살)</b>: 사람 나이 44~56세. 체중과 치아 관리 시작.</li><li><b>노령기 (11살 이상)</b>: 사람 나이 60세 이상. 신장·갑상선 검진 권장.</li></ul>
+<p class="note">국제고양이보호협회(International Cat Care)의 환산 기준을 바탕으로 한 대략값입니다.</p>
+<script src="/app.js"></script>
+<script>
+function human(a){if(a<=1)return a*15;if(a<=2)return 15+(a-1)*9;return 24+(a-2)*4;}
+function stage(a){return a<0.6?'새끼':a<3?'청년기':a<7?'성묘기':a<11?'중년기':a<15?'노령기':'초고령기';}
+function calc(){const a=(+$('#y').value||0)+(+$('#m').value||0)/12;$('#out').innerHTML=`<div class="big">사람 나이 약 ${Math.round(human(a))}세</div><p>생애 단계: <b>${stage(a)}</b></p>`;}
+$('#tbl').innerHTML='<tr><th>고양이</th><th>사람 나이</th><th>단계</th></tr>'+[1,2,3,4,5,6,7,8,9,10,11,12,13,14,15,16,17,18,19,20].map(y=>`<tr><td>${y}살</td><td>${human(y)}세</td><td>${stage(y)}</td></tr>`).join('');
+document.querySelectorAll('input').forEach(x=>x.addEventListener('input',calc));calc();
+</script>
+<section class="faq"><h2>자주 묻는 질문</h2><details><summary>고양이 1살은 사람 몇 살인가요?</summary><p>약 15살입니다. 2살이면 약 24살이고, 그 뒤로는 1년에 사람 나이 약 4살씩 늘어납니다.</p></details><details><summary>고양이는 몇 살부터 노령묘인가요?</summary><p>보통 11살부터 노령기(사람 나이 약 60세)로 보고, 15살 이상은 초고령묘로 봅니다.</p></details><details><summary>집고양이와 길고양이 수명은 다른가요?</summary><p>실내에서 사는 고양이는 평균 12~18년, 길고양이는 사고와 질병 때문에 훨씬 짧습니다.</p></details></section><section><h2>다른 계산기</h2><div class="grid"><a class="card c4" href="/bmr.html" data-k="기초대사량 계산기 BMR·하루 필요 칼로리"><i class="ic">🔥</i><span class="tx"><b>기초대사량 계산기</b><span>BMR·하루 필요 칼로리</span></span></a><a class="card c4" href="/dog-age.html" data-k="강아지 나이 계산기 견종 크기별 사람 나이 환산"><i class="ic">🐶</i><span class="tx"><b>강아지 나이 계산기</b><span>견종 크기별 사람 나이 환산</span></span></a><a class="card c1" href="/age.html" data-k="만 나이 계산기 만 나이·연 나이·띠·다음 생일"><i class="ic">🎂</i><span class="tx"><b>만 나이 계산기</b><span>만 나이·연 나이·띠·다음 생일</span></span></a><a class="card c5" href="/car-tax.html" data-k="자동차세 계산기 배기량·연식별 연 자동차세"><i class="ic">🚗</i><span class="tx"><b>자동차세 계산기</b><span>배기량·연식별 연 자동차세</span></span></a><a class="card c6" href="/ladder.html" data-k="사다리타기 이름·결과 넣고 바로 하는 사다리 게임"><i class="ic">🪜</i><span class="tx"><b>사다리타기</b><span>이름·결과 넣고 바로 하는 사다리 게임</span></span></a><a class="card c5" href="/car-loan.html" data-k="자동차 할부 계산기 차 할부 월 납입금·총 이자"><i class="ic">🚙</i><span class="tx"><b>자동차 할부 계산기</b><span>차 할부 월 납입금·총 이자</span></span></a></div></section><p class="updated">최종 확인: 2026-10-17</p></main><footer class="foot"><div class="wrap">
+<nav><a href="/about.html">소개</a><a href="/privacy.html">개인정보처리방침</a><a href="/terms.html">이용약관</a><a href="/contact.html">문의</a></nav>
+<p>© 2026 생활계산소. 계산 결과는 참고용이며, 중요한 결정은 공식 기관·전문가에게 확인하세요.</p>
+</div></footer>
+</body></html>

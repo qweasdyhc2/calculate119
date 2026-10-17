@@ -1,0 +1,35 @@
+<!doctype html>
+<html lang="ko"><head>
+<meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1">
+<title>기초대사량 계산기 - 하루 필요 칼로리, 다이어트 목표 칼로리</title>
+<meta name="description" content="성별·나이·키·몸무게로 기초대사량(BMR)을 계산하고, 활동량에 따른 하루 필요 칼로리와 감량·증량 목표 칼로리를 알려 줍니다.">
+<link rel="canonical" href="https://calculate119.com/bmr.html">
+<meta property="og:type" content="website"><meta property="og:site_name" content="생활계산소">
+<meta property="og:title" content="기초대사량 계산기 - 하루 필요 칼로리, 다이어트 목표 칼로리"><meta property="og:description" content="성별·나이·키·몸무게로 기초대사량(BMR)을 계산하고, 활동량에 따른 하루 필요 칼로리와 감량·증량 목표 칼로리를 알려 줍니다.">
+<meta property="og:url" content="https://calculate119.com/bmr.html"><meta property="og:locale" content="ko_KR">
+<link rel="icon" href="/favicon.svg" type="image/svg+xml">
+<link rel="stylesheet" href="/style.css">
+<script type="application/ld+json">{"@context": "https://schema.org", "@type": "WebApplication", "name": "기초대사량 계산기", "url": "https://calculate119.com/bmr.html", "applicationCategory": "UtilitiesApplication", "operatingSystem": "Any", "inLanguage": "ko", "offers": {"@type": "Offer", "price": "0", "priceCurrency": "KRW"}, "description": "성별·나이·키·몸무게로 기초대사량(BMR)을 계산하고, 활동량에 따른 하루 필요 칼로리와 감량·증량 목표 칼로리를 알려 줍니다."}</script><script type="application/ld+json">{"@context": "https://schema.org", "@type": "FAQPage", "mainEntity": [{"@type": "Question", "name": "기초대사량이란?", "acceptedAnswer": {"@type": "Answer", "text": "아무것도 하지 않고 누워만 있어도 숨쉬기, 체온 유지 등 생명 유지에 쓰이는 하루 에너지입니다. 하루 소비 칼로리의 약 60~70%를 차지합니다."}}, {"@type": "Question", "name": "어떤 공식을 쓰나요?", "acceptedAnswer": {"@type": "Answer", "text": "최근 많이 쓰는 미플린-세인트 지어(Mifflin-St Jeor) 공식을 기본으로 하고, 해리스-베네딕트(개정) 공식 결과도 함께 보여 줍니다."}}, {"@type": "Question", "name": "다이어트하려면 몇 칼로리 먹어야 하나요?", "acceptedAnswer": {"@type": "Answer", "text": "하루 필요 칼로리에서 약 500kcal를 줄이면 일주일에 0.5kg 정도 감량을 기대할 수 있습니다. 기초대사량보다 적게 먹는 것은 권하지 않습니다."}}]}</script>
+</head><body>
+<header class="top"><div class="wrap"><a class="logo" href="/">생활계산소</a></div></header>
+<main class="wrap c4"><p class="crumb"><a href="/">홈</a> › 건강·반려</p><h1 class="th"><i class="ic">🔥</i>기초대사량 계산기</h1><div class="tool">
+ <div class="row"><label>성별<select id="sex"><option value="m">남성</option><option value="f">여성</option></select></label><label>나이<input type="number" id="age" value="35" min="10" max="100"></label></div>
+ <div class="row"><label>키 (cm)<input type="number" id="h" value="172" step="0.1"></label><label>몸무게 (kg)<input type="number" id="w" value="70" step="0.1"></label></div>
+ <div class="row"><label>활동량<select id="act"><option value="1.2">거의 안 움직임 (사무직)</option><option value="1.375" selected>가벼운 활동 (주 1~3회 운동)</option><option value="1.55">보통 (주 3~5회 운동)</option><option value="1.725">많음 (주 6~7회 운동)</option><option value="1.9">매우 많음 (육체노동·선수)</option></select></label></div>
+ <div class="result" id="out"></div>
+</div>
+<h2>공식</h2>
+<ul><li><b>미플린-세인트 지어</b>: 10 × 체중(kg) + 6.25 × 키(cm) − 5 × 나이 + 5(남) / −161(여)</li><li><b>해리스-베네딕트 (1984 개정)</b>: 남 88.362 + 13.397W + 4.799H − 5.677A, 여 447.593 + 9.247W + 3.098H − 4.330A</li><li><b>하루 필요 칼로리</b> = 기초대사량 × 활동계수</li></ul>
+<p class="note">공식에 따른 추정값이며 근육량, 건강 상태에 따라 실제와 다를 수 있습니다. 질환이 있으면 의사·영양사와 상의하세요.</p>
+<script src="/app.js"></script>
+<script>
+function calc(){const m=$('#sex').value==='m',a=+$('#age').value,h=+$('#h').value,w=+$('#w').value,act=+$('#act').value;
+  const mif=10*w+6.25*h-5*a+(m?5:-161),hb=m?88.362+13.397*w+4.799*h-5.677*a:447.593+9.247*w+3.098*h-4.330*a,tdee=mif*act;
+  $('#out').innerHTML=`<div class="big">기초대사량 ${won(mif)} kcal</div><p>해리스-베네딕트 공식으로는 ${won(hb)} kcal</p><div class="stats"><div><b>${won(tdee)}</b><span>하루 필요 kcal</span></div><div><b>${won(Math.max(tdee-500,mif))}</b><span>감량 목표 kcal</span></div><div><b>${won(tdee+300)}</b><span>증량 목표 kcal</span></div></div>`;}
+document.querySelectorAll('input,select').forEach(i=>i.addEventListener('input',calc));calc();
+</script>
+<section class="faq"><h2>자주 묻는 질문</h2><details><summary>기초대사량이란?</summary><p>아무것도 하지 않고 누워만 있어도 숨쉬기, 체온 유지 등 생명 유지에 쓰이는 하루 에너지입니다. 하루 소비 칼로리의 약 60~70%를 차지합니다.</p></details><details><summary>어떤 공식을 쓰나요?</summary><p>최근 많이 쓰는 미플린-세인트 지어(Mifflin-St Jeor) 공식을 기본으로 하고, 해리스-베네딕트(개정) 공식 결과도 함께 보여 줍니다.</p></details><details><summary>다이어트하려면 몇 칼로리 먹어야 하나요?</summary><p>하루 필요 칼로리에서 약 500kcal를 줄이면 일주일에 0.5kg 정도 감량을 기대할 수 있습니다. 기초대사량보다 적게 먹는 것은 권하지 않습니다.</p></details></section><section><h2>다른 계산기</h2><div class="grid"><a class="card c4" href="/dog-age.html" data-k="강아지 나이 계산기 견종 크기별 사람 나이 환산"><i class="ic">🐶</i><span class="tx"><b>강아지 나이 계산기</b><span>견종 크기별 사람 나이 환산</span></span></a><a class="card c4" href="/cat-age.html" data-k="고양이 나이 계산기 사람 나이 환산·생애 단계"><i class="ic">🐱</i><span class="tx"><b>고양이 나이 계산기</b><span>사람 나이 환산·생애 단계</span></span></a><a class="card c1" href="/age.html" data-k="만 나이 계산기 만 나이·연 나이·띠·다음 생일"><i class="ic">🎂</i><span class="tx"><b>만 나이 계산기</b><span>만 나이·연 나이·띠·다음 생일</span></span></a><a class="card c5" href="/car-tax.html" data-k="자동차세 계산기 배기량·연식별 연 자동차세"><i class="ic">🚗</i><span class="tx"><b>자동차세 계산기</b><span>배기량·연식별 연 자동차세</span></span></a><a class="card c6" href="/ladder.html" data-k="사다리타기 이름·결과 넣고 바로 하는 사다리 게임"><i class="ic">🪜</i><span class="tx"><b>사다리타기</b><span>이름·결과 넣고 바로 하는 사다리 게임</span></span></a><a class="card c5" href="/car-loan.html" data-k="자동차 할부 계산기 차 할부 월 납입금·총 이자"><i class="ic">🚙</i><span class="tx"><b>자동차 할부 계산기</b><span>차 할부 월 납입금·총 이자</span></span></a></div></section><p class="updated">최종 확인: 2026-10-17</p></main><footer class="foot"><div class="wrap">
+<nav><a href="/about.html">소개</a><a href="/privacy.html">개인정보처리방침</a><a href="/terms.html">이용약관</a><a href="/contact.html">문의</a></nav>
+<p>© 2026 생활계산소. 계산 결과는 참고용이며, 중요한 결정은 공식 기관·전문가에게 확인하세요.</p>
+</div></footer>
+</body></html>

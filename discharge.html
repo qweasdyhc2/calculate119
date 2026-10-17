@@ -1,0 +1,39 @@
+<!doctype html>
+<html lang="ko"><head>
+<meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1">
+<title>전역일 계산기 - 육군·해군·공군·해병대·사회복무요원</title>
+<meta name="description" content="입대일과 군별만 고르면 전역(소집해제) 예정일, 남은 날짜, 복무 진행률을 계산합니다. 2026년 기준 복무기간 적용.">
+<link rel="canonical" href="https://calculate119.com/discharge.html">
+<meta property="og:type" content="website"><meta property="og:site_name" content="생활계산소">
+<meta property="og:title" content="전역일 계산기 - 육군·해군·공군·해병대·사회복무요원"><meta property="og:description" content="입대일과 군별만 고르면 전역(소집해제) 예정일, 남은 날짜, 복무 진행률을 계산합니다. 2026년 기준 복무기간 적용.">
+<meta property="og:url" content="https://calculate119.com/discharge.html"><meta property="og:locale" content="ko_KR">
+<link rel="icon" href="/favicon.svg" type="image/svg+xml">
+<link rel="stylesheet" href="/style.css">
+<script type="application/ld+json">{"@context": "https://schema.org", "@type": "WebApplication", "name": "전역일 계산기", "url": "https://calculate119.com/discharge.html", "applicationCategory": "UtilitiesApplication", "operatingSystem": "Any", "inLanguage": "ko", "offers": {"@type": "Offer", "price": "0", "priceCurrency": "KRW"}, "description": "입대일과 군별만 고르면 전역(소집해제) 예정일, 남은 날짜, 복무 진행률을 계산합니다. 2026년 기준 복무기간 적용."}</script><script type="application/ld+json">{"@context": "https://schema.org", "@type": "FAQPage", "mainEntity": [{"@type": "Question", "name": "전역일은 어떻게 정해지나요?", "acceptedAnswer": {"@type": "Answer", "text": "입대일로부터 복무기간(개월)이 지난 날의 전날이 전역일입니다. 예를 들어 육군(18개월) 2025년 1월 6일 입대면 2026년 7월 5일 전역입니다."}}, {"@type": "Question", "name": "휴가를 쓰면 전역이 빨라지나요?", "acceptedAnswer": {"@type": "Answer", "text": "말년휴가를 전역일까지 이어서 쓰면 부대에서 일찍 나오지만, 공식 전역일 자체는 바뀌지 않습니다."}}, {"@type": "Question", "name": "계산 결과가 실제와 다를 수 있나요?", "acceptedAnswer": {"@type": "Answer", "text": "조기전역, 영창·징계로 인한 복무 연장, 제도 변경 등이 있으면 달라질 수 있습니다. 정확한 날짜는 소속 부대나 병무청에서 확인하세요."}}]}</script>
+</head><body>
+<header class="top"><div class="wrap"><a class="logo" href="/">생활계산소</a></div></header>
+<main class="wrap c1"><p class="crumb"><a href="/">홈</a> › 날짜·나이</p><h1 class="th"><i class="ic">🎖️</i>전역일 계산기</h1><div class="tool">
+ <div class="row"><label>입대일<input type="date" id="s" value="2025-06-02"></label>
+ <label>구분<select id="k"><option value="18">육군 (18개월)</option><option value="18">해병대 (18개월)</option><option value="20">해군 (20개월)</option><option value="21">공군 (21개월)</option><option value="21">사회복무요원 (21개월)</option></select></label></div>
+ <div class="result" id="out"></div>
+</div>
+<h2>군별 복무기간 (2026년 기준)</h2>
+<div class="scroll"><table><tr><th>구분</th><th>복무기간</th></tr><tr><td>육군·해병대</td><td>18개월</td></tr><tr><td>해군</td><td>20개월</td></tr><tr><td>공군</td><td>21개월</td></tr><tr><td>사회복무요원</td><td>21개월</td></tr></table></div>
+<p>전역일은 '입대일 + 복무 개월 수 − 1일'로 계산합니다. 입대한 날이 복무 첫날이기 때문입니다. 실제 전역일은 소속 부대 사정과 제도 변경에 따라 달라질 수 있으니 참고용으로 활용하세요.</p>
+<script src="/app.js"></script>
+<script>
+function calc(){const s=d($('#s').value);if(isNaN(s))return;const m=+$('#k').value;
+  // 민법 160조: 해당일 전날 만료, 해당일이 없으면 그 달 말일
+  let e=new Date(s.getFullYear(),s.getMonth()+m,s.getDate());if(e.getDate()!==s.getDate())e=new Date(s.getFullYear(),s.getMonth()+m+1,0);else e.setDate(e.getDate()-1);
+  const t=today(),total=diffDays(s,e)+1,done=Math.min(Math.max(diffDays(s,t)+1,0),total),left=diffDays(t,e);
+  const pct=(done/total*100);
+  $('#out').innerHTML=`<div class="big">${fmt(e)}</div><p>전역 예정일 · ${left>=0?dday(left):'전역 완료'}</p>
+  <div style="background:var(--card);border-radius:8px;height:14px;overflow:hidden;margin:8px 0"><div style="width:${pct}%;height:100%;background:var(--acc)"></div></div>
+  <div class="stats"><div><b>${pct.toFixed(1)}%</b><span>복무 진행률</span></div><div><b>${done}일</b><span>복무한 날</span></div><div><b>${Math.max(left,0)}일</b><span>남은 날</span></div><div><b>${total}일</b><span>전체 복무일</span></div></div>`;}
+$('#s').oninput=calc;$('#k').onchange=calc;calc();
+</script>
+<section class="faq"><h2>자주 묻는 질문</h2><details><summary>전역일은 어떻게 정해지나요?</summary><p>입대일로부터 복무기간(개월)이 지난 날의 전날이 전역일입니다. 예를 들어 육군(18개월) 2025년 1월 6일 입대면 2026년 7월 5일 전역입니다.</p></details><details><summary>휴가를 쓰면 전역이 빨라지나요?</summary><p>말년휴가를 전역일까지 이어서 쓰면 부대에서 일찍 나오지만, 공식 전역일 자체는 바뀌지 않습니다.</p></details><details><summary>계산 결과가 실제와 다를 수 있나요?</summary><p>조기전역, 영창·징계로 인한 복무 연장, 제도 변경 등이 있으면 달라질 수 있습니다. 정확한 날짜는 소속 부대나 병무청에서 확인하세요.</p></details></section><section><h2>다른 계산기</h2><div class="grid"><a class="card c1" href="/age.html" data-k="만 나이 계산기 만 나이·연 나이·띠·다음 생일"><i class="ic">🎂</i><span class="tx"><b>만 나이 계산기</b><span>만 나이·연 나이·띠·다음 생일</span></span></a><a class="card c1" href="/dday.html" data-k="디데이 · 날짜 계산기 두 날짜 사이 일수, N일 후 날짜"><i class="ic">📅</i><span class="tx"><b>디데이 · 날짜 계산기</b><span>두 날짜 사이 일수, N일 후 날짜</span></span></a><a class="card c1" href="/couple.html" data-k="커플 기념일 계산기 사귄 날로 100일·1주년 날짜"><i class="ic">💕</i><span class="tx"><b>커플 기념일 계산기</b><span>사귄 날로 100일·1주년 날짜</span></span></a><a class="card c1" href="/lunar.html" data-k="양력 ↔ 음력 변환기 음력 생일 양력 날짜, 윤달"><i class="ic">🌙</i><span class="tx"><b>양력 ↔ 음력 변환기</b><span>음력 생일 양력 날짜, 윤달</span></span></a><a class="card c1" href="/time-calc.html" data-k="시간 계산기 시각 차이, 시간 더하기·빼기"><i class="ic">🕒</i><span class="tx"><b>시간 계산기</b><span>시각 차이, 시간 더하기·빼기</span></span></a><a class="card c4" href="/bmr.html" data-k="기초대사량 계산기 BMR·하루 필요 칼로리"><i class="ic">🔥</i><span class="tx"><b>기초대사량 계산기</b><span>BMR·하루 필요 칼로리</span></span></a></div></section><p class="updated">최종 확인: 2026-10-17</p></main><footer class="foot"><div class="wrap">
+<nav><a href="/about.html">소개</a><a href="/privacy.html">개인정보처리방침</a><a href="/terms.html">이용약관</a><a href="/contact.html">문의</a></nav>
+<p>© 2026 생활계산소. 계산 결과는 참고용이며, 중요한 결정은 공식 기관·전문가에게 확인하세요.</p>
+</div></footer>
+</body></html>

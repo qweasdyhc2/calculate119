@@ -1,0 +1,3 @@
+User-agent: *
+Allow: /
+Sitemap: https://calculate119.com/sitemap.xml

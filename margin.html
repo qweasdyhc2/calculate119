@@ -1,0 +1,40 @@
+<!doctype html>
+<html lang="ko"><head>
+<meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1">
+<title>마진율 계산기 - 마진율·마크업·판매가 역산</title>
+<meta name="description" content="원가와 판매가로 마진율과 마크업(원가 대비 이익률)을, 원가와 목표 마진율로 판매가를 계산합니다. 스마트스토어·쇼핑몰 가격 정할 때.">
+<link rel="canonical" href="https://calculate119.com/margin.html">
+<meta property="og:type" content="website"><meta property="og:site_name" content="생활계산소">
+<meta property="og:title" content="마진율 계산기 - 마진율·마크업·판매가 역산"><meta property="og:description" content="원가와 판매가로 마진율과 마크업(원가 대비 이익률)을, 원가와 목표 마진율로 판매가를 계산합니다. 스마트스토어·쇼핑몰 가격 정할 때.">
+<meta property="og:url" content="https://calculate119.com/margin.html"><meta property="og:locale" content="ko_KR">
+<link rel="icon" href="/favicon.svg" type="image/svg+xml">
+<link rel="stylesheet" href="/style.css">
+<script type="application/ld+json">{"@context": "https://schema.org", "@type": "WebApplication", "name": "마진율 계산기", "url": "https://calculate119.com/margin.html", "applicationCategory": "UtilitiesApplication", "operatingSystem": "Any", "inLanguage": "ko", "offers": {"@type": "Offer", "price": "0", "priceCurrency": "KRW"}, "description": "원가와 판매가로 마진율과 마크업(원가 대비 이익률)을, 원가와 목표 마진율로 판매가를 계산합니다. 스마트스토어·쇼핑몰 가격 정할 때."}</script><script type="application/ld+json">{"@context": "https://schema.org", "@type": "FAQPage", "mainEntity": [{"@type": "Question", "name": "마진율과 마크업은 뭐가 다른가요?", "acceptedAnswer": {"@type": "Answer", "text": "마진율은 판매가 대비 이익 비율, 마크업은 원가 대비 이익 비율입니다. 원가 7,000원 판매가 10,000원이면 마진율 30%, 마크업 약 42.9%입니다."}}, {"@type": "Question", "name": "마진 30%를 남기려면 판매가를 얼마로 하나요?", "acceptedAnswer": {"@type": "Answer", "text": "원가 ÷ (1 − 0.3)입니다. 원가 7,000원이면 10,000원입니다. 원가에 30%를 더한 9,100원으로 하면 마진율은 약 23%밖에 안 됩니다."}}, {"@type": "Question", "name": "수수료와 배송비는요?", "acceptedAnswer": {"@type": "Answer", "text": "오픈마켓 수수료, 결제 수수료, 배송비, 부가세를 원가에 포함하거나 판매가에서 빼고 계산해야 실제 마진이 나옵니다."}}]}</script>
+</head><body>
+<header class="top"><div class="wrap"><a class="logo" href="/">생활계산소</a></div></header>
+<main class="wrap c3"><p class="crumb"><a href="/">홈</a> › 돈·숫자</p><h1 class="th"><i class="ic">📈</i>마진율 계산기</h1><div class="tool">
+ <div class="tabs"><button class="on" data-m="a">원가·판매가 → 마진율</button><button data-m="b">원가·목표 마진율 → 판매가</button></div>
+ <div class="row"><label>원가 (원)<input class="money" id="c" value="7,000" inputmode="numeric"></label><label id="lb">판매가 (원)<input class="money" id="s" value="10,000" inputmode="numeric"></label></div>
+ <div class="row"><label>판매 수수료 (%)<input type="number" id="fee" value="0" step="0.1" min="0"></label></div>
+ <div class="result" id="out"></div>
+</div>
+<h2>공식</h2>
+<ul><li>마진(이익) = 판매가 − 원가 − 판매가 × 수수료율</li><li>마진율 = 마진 ÷ 판매가 × 100</li><li>마크업 = 마진 ÷ 원가 × 100</li><li>목표 판매가 = 원가 ÷ (1 − 목표 마진율 − 수수료율)</li></ul>
+<p>가격을 정할 때 '원가에 30% 붙이기'(마크업)와 '판매가의 30% 남기기'(마진율)를 헷갈리면 이익이 예상보다 줄어듭니다.</p>
+<script src="/app.js"></script>
+<script>
+let mode='a';
+document.querySelectorAll('.tabs button').forEach(b=>b.onclick=()=>{mode=b.dataset.m;document.querySelectorAll('.tabs button').forEach(x=>x.classList.toggle('on',x===b));
+  $('#lb').firstChild.textContent=mode==='a'?'판매가 (원)':'목표 마진율 (%)';$('#s').value=mode==='a'?'10,000':'30';$('#s').classList.toggle('money',mode==='a');calc();});
+const p1=x=>(Math.round(x*10)/10).toLocaleString('ko-KR');
+function calc(){const c=num($('#c')),f=(+$('#fee').value||0)/100;
+  if(mode==='a'){const s=num($('#s')),m=s-c-s*f;$('#out').innerHTML=`<div class="stats"><div><b>${p1(s?m/s*100:0)}%</b><span>마진율</span></div><div><b>${p1(c?m/c*100:0)}%</b><span>마크업</span></div><div><b>${won(m)}원</b><span>개당 이익</span></div></div>`;}
+  else{const t=num($('#s'))/100,den=1-t-f;if(den<=0){$('#out').textContent='마진율과 수수료 합이 100%보다 작아야 해요.';return;}const s=c/den;
+    $('#out').innerHTML=`<div class="big">${won(Math.ceil(s))}원</div><p>목표 판매가 · 개당 이익 ${won(s-c-s*f)}원 · 마크업 ${p1((s-c-s*f)/c*100)}%</p>`;}}
+document.querySelectorAll('input').forEach(i=>i.addEventListener('input',calc));calc();
+</script>
+<section class="faq"><h2>자주 묻는 질문</h2><details><summary>마진율과 마크업은 뭐가 다른가요?</summary><p>마진율은 판매가 대비 이익 비율, 마크업은 원가 대비 이익 비율입니다. 원가 7,000원 판매가 10,000원이면 마진율 30%, 마크업 약 42.9%입니다.</p></details><details><summary>마진 30%를 남기려면 판매가를 얼마로 하나요?</summary><p>원가 ÷ (1 − 0.3)입니다. 원가 7,000원이면 10,000원입니다. 원가에 30%를 더한 9,100원으로 하면 마진율은 약 23%밖에 안 됩니다.</p></details><details><summary>수수료와 배송비는요?</summary><p>오픈마켓 수수료, 결제 수수료, 배송비, 부가세를 원가에 포함하거나 판매가에서 빼고 계산해야 실제 마진이 나옵니다.</p></details></section><section><h2>다른 계산기</h2><div class="grid"><a class="card c3" href="/vat.html" data-k="부가세 계산기 공급가액 ↔ 합계금액, VAT 10%"><i class="ic">🧾</i><span class="tx"><b>부가세 계산기</b><span>공급가액 ↔ 합계금액, VAT 10%</span></span></a><a class="card c3" href="/annual-leave.html" data-k="연차 · 연차수당 계산기 입사일 기준 연차 일수, 연차수당"><i class="ic">🏖️</i><span class="tx"><b>연차 · 연차수당 계산기</b><span>입사일 기준 연차 일수, 연차수당</span></span></a><a class="card c3" href="/installment.html" data-k="할부 계산기 카드 할부 수수료·월 납부액"><i class="ic">💳</i><span class="tx"><b>할부 계산기</b><span>카드 할부 수수료·월 납부액</span></span></a><a class="card c3" href="/percent.html" data-k="퍼센트 계산기 비율·증감률·할인가"><i class="ic">％</i><span class="tx"><b>퍼센트 계산기</b><span>비율·증감률·할인가</span></span></a><a class="card c3" href="/loan.html" data-k="대출 이자 계산기 월 상환액·총 이자·상환표"><i class="ic">🏦</i><span class="tx"><b>대출 이자 계산기</b><span>월 상환액·총 이자·상환표</span></span></a><a class="card c3" href="/lotto.html" data-k="로또 실수령액 · 세금 계산기 당첨금 세금·실수령액"><i class="ic">🍀</i><span class="tx"><b>로또 실수령액 · 세금 계산기</b><span>당첨금 세금·실수령액</span></span></a></div></section><p class="updated">최종 확인: 2026-10-17</p></main><footer class="foot"><div class="wrap">
+<nav><a href="/about.html">소개</a><a href="/privacy.html">개인정보처리방침</a><a href="/terms.html">이용약관</a><a href="/contact.html">문의</a></nav>
+<p>© 2026 생활계산소. 계산 결과는 참고용이며, 중요한 결정은 공식 기관·전문가에게 확인하세요.</p>
+</div></footer>
+</body></html>

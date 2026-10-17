@@ -1,0 +1,36 @@
+<!doctype html>
+<html lang="ko"><head>
+<meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1">
+<title>할부 계산기 - 카드 할부 수수료·월 납부액</title>
+<meta name="description" content="결제 금액, 할부 개월, 할부 수수료율(연)을 넣으면 매달 낼 금액과 총 할부 수수료를 계산합니다. 2~36개월, 무이자 할부 비교.">
+<link rel="canonical" href="https://calculate119.com/installment.html">
+<meta property="og:type" content="website"><meta property="og:site_name" content="생활계산소">
+<meta property="og:title" content="할부 계산기 - 카드 할부 수수료·월 납부액"><meta property="og:description" content="결제 금액, 할부 개월, 할부 수수료율(연)을 넣으면 매달 낼 금액과 총 할부 수수료를 계산합니다. 2~36개월, 무이자 할부 비교.">
+<meta property="og:url" content="https://calculate119.com/installment.html"><meta property="og:locale" content="ko_KR">
+<link rel="icon" href="/favicon.svg" type="image/svg+xml">
+<link rel="stylesheet" href="/style.css">
+<script type="application/ld+json">{"@context": "https://schema.org", "@type": "WebApplication", "name": "할부 계산기", "url": "https://calculate119.com/installment.html", "applicationCategory": "UtilitiesApplication", "operatingSystem": "Any", "inLanguage": "ko", "offers": {"@type": "Offer", "price": "0", "priceCurrency": "KRW"}, "description": "결제 금액, 할부 개월, 할부 수수료율(연)을 넣으면 매달 낼 금액과 총 할부 수수료를 계산합니다. 2~36개월, 무이자 할부 비교."}</script><script type="application/ld+json">{"@context": "https://schema.org", "@type": "FAQPage", "mainEntity": [{"@type": "Question", "name": "카드 할부 수수료는 어떻게 계산하나요?", "acceptedAnswer": {"@type": "Answer", "text": "카드사는 보통 매달 같은 원금을 갚고, 남은 할부 잔액에 수수료율을 곱해 수수료를 붙입니다. 그래서 첫 달에 가장 많이 내고 점점 줄어듭니다."}}, {"@type": "Question", "name": "할부 수수료율은 어디서 보나요?", "acceptedAnswer": {"@type": "Answer", "text": "카드사 앱이나 홈페이지의 '할부 수수료율' 안내에서 개월별로 확인할 수 있습니다. 보통 연 10~20% 수준이라 생각보다 비쌉니다."}}, {"@type": "Question", "name": "무이자 할부는 정말 공짜인가요?", "acceptedAnswer": {"@type": "Answer", "text": "무이자 할부 기간 안이면 수수료가 없습니다. 다만 '부분 무이자'는 일부 회차만 면제되니 조건을 확인하세요."}}]}</script>
+</head><body>
+<header class="top"><div class="wrap"><a class="logo" href="/">생활계산소</a></div></header>
+<main class="wrap c3"><p class="crumb"><a href="/">홈</a> › 돈·숫자</p><h1 class="th"><i class="ic">💳</i>할부 계산기</h1><div class="tool">
+ <div class="row"><label>결제 금액 (원)<input class="money" id="p" value="1,200,000" inputmode="numeric"></label><label>할부 개월<select id="n"></select></label><label>할부 수수료율 (연 %)<input type="number" id="r" value="15" step="0.1" min="0"></label></div>
+ <div class="result" id="out"></div>
+</div>
+<div class="scroll"><table id="tbl"></table></div>
+<h2>할부 수수료가 생각보다 큰 이유</h2>
+<p>연 15% 수수료로 120만 원을 12개월 할부하면 수수료가 약 9만 7천 원입니다. 적금 이자율보다 훨씬 높아서, 급하지 않으면 일시불이나 무이자 할부를 쓰는 편이 낫습니다.</p>
+<p class="note">카드사는 실제로 이용 일수(일할)로 계산해 몇십 원~몇백 원 차이가 날 수 있습니다.</p>
+<script src="/app.js"></script>
+<script>
+[2,3,4,5,6,7,8,9,10,11,12,18,24,36].forEach(m=>$('#n').insertAdjacentHTML('beforeend',`<option ${m===12?'selected':''}>${m}</option>`));
+function calc(){const P=num($('#p')),n=+$('#n').value,i=(+$('#r').value||0)/1200;let bal=P,rows=[],fee=0;
+  for(let m=1;m<=n;m++){const pr=m===n?bal:Math.floor(P/n),f=Math.floor(bal*i);fee+=f;rows.push([m,pr+f,pr,f,bal-pr]);bal-=pr;}
+  $('#out').innerHTML=`<div class="stats"><div><b>${won(rows[0][1])}원</b><span>첫 달 납부액</span></div><div><b>${won(fee)}원</b><span>총 할부 수수료</span></div><div><b>${won(P+fee)}원</b><span>총 납부액</span></div><div><b>${won(P/n)}원</b><span>무이자라면 월</span></div></div>`;
+  $('#tbl').innerHTML='<tr><th>회차</th><th>납부액</th><th>원금</th><th>수수료</th><th>잔액</th></tr>'+rows.map(r=>`<tr><td>${r[0]}</td>${r.slice(1).map(x=>`<td>${won(x)}</td>`).join('')}</tr>`).join('');}
+document.querySelectorAll('input,select').forEach(x=>x.addEventListener('input',calc));calc();
+</script>
+<section class="faq"><h2>자주 묻는 질문</h2><details><summary>카드 할부 수수료는 어떻게 계산하나요?</summary><p>카드사는 보통 매달 같은 원금을 갚고, 남은 할부 잔액에 수수료율을 곱해 수수료를 붙입니다. 그래서 첫 달에 가장 많이 내고 점점 줄어듭니다.</p></details><details><summary>할부 수수료율은 어디서 보나요?</summary><p>카드사 앱이나 홈페이지의 &#x27;할부 수수료율&#x27; 안내에서 개월별로 확인할 수 있습니다. 보통 연 10~20% 수준이라 생각보다 비쌉니다.</p></details><details><summary>무이자 할부는 정말 공짜인가요?</summary><p>무이자 할부 기간 안이면 수수료가 없습니다. 다만 &#x27;부분 무이자&#x27;는 일부 회차만 면제되니 조건을 확인하세요.</p></details></section><section><h2>다른 계산기</h2><div class="grid"><a class="card c3" href="/vat.html" data-k="부가세 계산기 공급가액 ↔ 합계금액, VAT 10%"><i class="ic">🧾</i><span class="tx"><b>부가세 계산기</b><span>공급가액 ↔ 합계금액, VAT 10%</span></span></a><a class="card c3" href="/annual-leave.html" data-k="연차 · 연차수당 계산기 입사일 기준 연차 일수, 연차수당"><i class="ic">🏖️</i><span class="tx"><b>연차 · 연차수당 계산기</b><span>입사일 기준 연차 일수, 연차수당</span></span></a><a class="card c3" href="/margin.html" data-k="마진율 계산기 마진율·마크업, 목표 판매가"><i class="ic">📈</i><span class="tx"><b>마진율 계산기</b><span>마진율·마크업, 목표 판매가</span></span></a><a class="card c3" href="/percent.html" data-k="퍼센트 계산기 비율·증감률·할인가"><i class="ic">％</i><span class="tx"><b>퍼센트 계산기</b><span>비율·증감률·할인가</span></span></a><a class="card c3" href="/loan.html" data-k="대출 이자 계산기 월 상환액·총 이자·상환표"><i class="ic">🏦</i><span class="tx"><b>대출 이자 계산기</b><span>월 상환액·총 이자·상환표</span></span></a><a class="card c3" href="/lotto.html" data-k="로또 실수령액 · 세금 계산기 당첨금 세금·실수령액"><i class="ic">🍀</i><span class="tx"><b>로또 실수령액 · 세금 계산기</b><span>당첨금 세금·실수령액</span></span></a></div></section><p class="updated">최종 확인: 2026-10-17</p></main><footer class="foot"><div class="wrap">
+<nav><a href="/about.html">소개</a><a href="/privacy.html">개인정보처리방침</a><a href="/terms.html">이용약관</a><a href="/contact.html">문의</a></nav>
+<p>© 2026 생활계산소. 계산 결과는 참고용이며, 중요한 결정은 공식 기관·전문가에게 확인하세요.</p>
+</div></footer>
+</body></html>

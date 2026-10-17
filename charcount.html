@@ -1,0 +1,40 @@
+<!doctype html>
+<html lang="ko"><head>
+<meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1">
+<title>글자수 세기 - 공백 포함·제외, 바이트, 원고지 매수</title>
+<meta name="description" content="자기소개서·리포트 글자수를 공백 포함/제외, 바이트, 단어 수, 원고지 매수까지 입력하는 즉시 셉니다. 입력한 글은 서버로 전송되지 않습니다.">
+<link rel="canonical" href="https://calculate119.com/charcount.html">
+<meta property="og:type" content="website"><meta property="og:site_name" content="생활계산소">
+<meta property="og:title" content="글자수 세기 - 공백 포함·제외, 바이트, 원고지 매수"><meta property="og:description" content="자기소개서·리포트 글자수를 공백 포함/제외, 바이트, 단어 수, 원고지 매수까지 입력하는 즉시 셉니다. 입력한 글은 서버로 전송되지 않습니다.">
+<meta property="og:url" content="https://calculate119.com/charcount.html"><meta property="og:locale" content="ko_KR">
+<link rel="icon" href="/favicon.svg" type="image/svg+xml">
+<link rel="stylesheet" href="/style.css">
+<script type="application/ld+json">{"@context": "https://schema.org", "@type": "WebApplication", "name": "글자수 세기", "url": "https://calculate119.com/charcount.html", "applicationCategory": "UtilitiesApplication", "operatingSystem": "Any", "inLanguage": "ko", "offers": {"@type": "Offer", "price": "0", "priceCurrency": "KRW"}, "description": "자기소개서·리포트 글자수를 공백 포함/제외, 바이트, 단어 수, 원고지 매수까지 입력하는 즉시 셉니다. 입력한 글은 서버로 전송되지 않습니다."}</script><script type="application/ld+json">{"@context": "https://schema.org", "@type": "FAQPage", "mainEntity": [{"@type": "Question", "name": "자기소개서는 공백 포함인가요, 제외인가요?", "acceptedAnswer": {"@type": "Answer", "text": "회사마다 다릅니다. 대부분의 채용 사이트는 공백 포함 기준이지만, 일부는 바이트 기준을 씁니다. 공고의 기준을 꼭 확인하세요."}}, {"@type": "Question", "name": "바이트는 왜 두 가지인가요?", "acceptedAnswer": {"@type": "Answer", "text": "옛 방식(EUC-KR)은 한글 1자를 2바이트, 요즘 방식(UTF-8)은 3바이트로 셉니다. 영문·숫자·공백은 둘 다 1바이트입니다."}}, {"@type": "Question", "name": "입력한 글이 저장되나요?", "acceptedAnswer": {"@type": "Answer", "text": "아니요. 글자수는 내 브라우저 안에서만 계산되고, 어디에도 전송·저장되지 않습니다."}}]}</script>
+</head><body>
+<header class="top"><div class="wrap"><a class="logo" href="/">생활계산소</a></div></header>
+<main class="wrap c2"><p class="crumb"><a href="/">홈</a> › 글·변환</p><h1 class="th"><i class="ic">✍️</i>글자수 세기</h1><div class="tool">
+ <textarea id="t" placeholder="여기에 글을 붙여 넣으세요"></textarea>
+ <div class="stats" style="margin-top:12px" id="out"></div>
+ <div style="margin-top:10px;display:flex;gap:8px"><button class="ghost" id="copy">복사</button><button class="ghost" id="clr">지우기</button></div>
+</div>
+<h2>글자수 세는 기준</h2>
+<ul><li><b>공백 포함</b>: 띄어쓰기와 줄바꿈까지 모두 1자로 셉니다.</li><li><b>공백 제외</b>: 띄어쓰기·줄바꿈·탭을 빼고 셉니다.</li><li><b>바이트(EUC-KR)</b>: 한글·한자 2바이트, 영문·숫자·공백 1바이트.</li><li><b>바이트(UTF-8)</b>: 한글 3바이트, 이모지 4바이트.</li><li><b>원고지</b>: 공백 포함 글자수를 200자 원고지 기준으로 나눈 대략값입니다.</li></ul>
+<p>자기소개서 문항이 '1,000자 이내'라면 보통 공백 포함 기준입니다. 제출 직전에 채용 사이트의 글자수 표시와 한 번 더 비교하는 것을 권합니다.</p>
+<script src="/app.js"></script>
+<script>
+const t=$('#t');try{t.value=localStorage.getItem('cc')||''}catch(e){}
+function calc(){const s=t.value.replace(/\r/g,''),ch=[...s];
+  const noSp=ch.filter(c=>!/\s/.test(c)).length;
+  const euc=ch.reduce((n,c)=>n+(c.charCodeAt(0)>127?2:1),0);
+  const utf=new TextEncoder().encode(s).length;
+  const words=(s.trim().match(/\S+/g)||[]).length, lines=s?s.split('\n').length:0;
+  $('#out').innerHTML=[[ch.length,'공백 포함'],[noSp,'공백 제외'],[euc,'바이트 (한글 2)'],[utf,'바이트 (UTF-8)'],[words,'단어'],[lines,'줄'],[Math.ceil(ch.length/200),'원고지(200자) 매']]
+   .map(([v,k])=>`<div><b>${v.toLocaleString()}</b><span>${k}</span></div>`).join('');
+  try{localStorage.setItem('cc',t.value)}catch(e){}}
+t.oninput=calc;$('#clr').onclick=()=>{t.value='';calc()};$('#copy').onclick=()=>navigator.clipboard&&navigator.clipboard.writeText(t.value);calc();
+</script>
+<section class="faq"><h2>자주 묻는 질문</h2><details><summary>자기소개서는 공백 포함인가요, 제외인가요?</summary><p>회사마다 다릅니다. 대부분의 채용 사이트는 공백 포함 기준이지만, 일부는 바이트 기준을 씁니다. 공고의 기준을 꼭 확인하세요.</p></details><details><summary>바이트는 왜 두 가지인가요?</summary><p>옛 방식(EUC-KR)은 한글 1자를 2바이트, 요즘 방식(UTF-8)은 3바이트로 셉니다. 영문·숫자·공백은 둘 다 1바이트입니다.</p></details><details><summary>입력한 글이 저장되나요?</summary><p>아니요. 글자수는 내 브라우저 안에서만 계산되고, 어디에도 전송·저장되지 않습니다.</p></details></section><section><h2>다른 계산기</h2><div class="grid"><a class="card c2" href="/english-name.html" data-k="영문 이름 변환기 한글 이름 → 영어 (여권 표기)"><i class="ic">🔤</i><span class="tx"><b>영문 이름 변환기</b><span>한글 이름 → 영어 (여권 표기)</span></span></a><a class="card c2" href="/pyeong.html" data-k="평수 계산기 ㎡ ↔ 평 변환, 아파트 평형"><i class="ic">📐</i><span class="tx"><b>평수 계산기</b><span>㎡ ↔ 평 변환, 아파트 평형</span></span></a><a class="card c1" href="/age.html" data-k="만 나이 계산기 만 나이·연 나이·띠·다음 생일"><i class="ic">🎂</i><span class="tx"><b>만 나이 계산기</b><span>만 나이·연 나이·띠·다음 생일</span></span></a><a class="card c4" href="/bmr.html" data-k="기초대사량 계산기 BMR·하루 필요 칼로리"><i class="ic">🔥</i><span class="tx"><b>기초대사량 계산기</b><span>BMR·하루 필요 칼로리</span></span></a><a class="card c5" href="/car-tax.html" data-k="자동차세 계산기 배기량·연식별 연 자동차세"><i class="ic">🚗</i><span class="tx"><b>자동차세 계산기</b><span>배기량·연식별 연 자동차세</span></span></a><a class="card c6" href="/ladder.html" data-k="사다리타기 이름·결과 넣고 바로 하는 사다리 게임"><i class="ic">🪜</i><span class="tx"><b>사다리타기</b><span>이름·결과 넣고 바로 하는 사다리 게임</span></span></a></div></section><p class="updated">최종 확인: 2026-10-17</p></main><footer class="foot"><div class="wrap">
+<nav><a href="/about.html">소개</a><a href="/privacy.html">개인정보처리방침</a><a href="/terms.html">이용약관</a><a href="/contact.html">문의</a></nav>
+<p>© 2026 생활계산소. 계산 결과는 참고용이며, 중요한 결정은 공식 기관·전문가에게 확인하세요.</p>
+</div></footer>
+</body></html>

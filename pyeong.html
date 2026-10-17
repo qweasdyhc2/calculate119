@@ -1,0 +1,37 @@
+<!doctype html>
+<html lang="ko"><head>
+<meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1">
+<title>평수 계산기 - 제곱미터(㎡) ↔ 평 변환, 아파트 평형</title>
+<meta name="description" content="제곱미터를 평으로, 평을 제곱미터로 바로 바꿉니다. 아파트 전용 59㎡·84㎡가 몇 평형인지, 전용면적과 공급면적 차이도 정리했습니다.">
+<link rel="canonical" href="https://calculate119.com/pyeong.html">
+<meta property="og:type" content="website"><meta property="og:site_name" content="생활계산소">
+<meta property="og:title" content="평수 계산기 - 제곱미터(㎡) ↔ 평 변환, 아파트 평형"><meta property="og:description" content="제곱미터를 평으로, 평을 제곱미터로 바로 바꿉니다. 아파트 전용 59㎡·84㎡가 몇 평형인지, 전용면적과 공급면적 차이도 정리했습니다.">
+<meta property="og:url" content="https://calculate119.com/pyeong.html"><meta property="og:locale" content="ko_KR">
+<link rel="icon" href="/favicon.svg" type="image/svg+xml">
+<link rel="stylesheet" href="/style.css">
+<script type="application/ld+json">{"@context": "https://schema.org", "@type": "WebApplication", "name": "평수 계산기", "url": "https://calculate119.com/pyeong.html", "applicationCategory": "UtilitiesApplication", "operatingSystem": "Any", "inLanguage": "ko", "offers": {"@type": "Offer", "price": "0", "priceCurrency": "KRW"}, "description": "제곱미터를 평으로, 평을 제곱미터로 바로 바꿉니다. 아파트 전용 59㎡·84㎡가 몇 평형인지, 전용면적과 공급면적 차이도 정리했습니다."}</script><script type="application/ld+json">{"@context": "https://schema.org", "@type": "FAQPage", "mainEntity": [{"@type": "Question", "name": "1평은 몇 제곱미터인가요?", "acceptedAnswer": {"@type": "Answer", "text": "1평은 약 3.3058㎡입니다. 제곱미터를 평으로 바꿀 때는 3.3058로 나누거나 0.3025를 곱합니다."}}, {"@type": "Question", "name": "84㎡ 아파트는 몇 평인가요?", "acceptedAnswer": {"@type": "Answer", "text": "전용면적 84㎡는 약 25.4평입니다. 여기에 계단·복도 같은 공용면적을 더한 공급면적으로 흔히 '33~34평형'이라고 부릅니다."}}, {"@type": "Question", "name": "전용면적과 공급면적은 뭐가 다른가요?", "acceptedAnswer": {"@type": "Answer", "text": "전용면적은 우리 집만 쓰는 실내 면적이고, 공급면적은 전용면적에 주거공용면적(계단, 복도, 엘리베이터 등)을 더한 것입니다. 발코니 확장 면적은 둘 다 포함되지 않습니다."}}]}</script>
+</head><body>
+<header class="top"><div class="wrap"><a class="logo" href="/">생활계산소</a></div></header>
+<main class="wrap c2"><p class="crumb"><a href="/">홈</a> › 글·변환</p><h1 class="th"><i class="ic">📐</i>평수 계산기</h1><div class="tool">
+ <div class="row"><label>제곱미터 (㎡)<input type="number" id="m" value="84" step="any"></label><label>평<input type="number" id="p" step="any"></label></div>
+ <p class="note">한쪽에 입력하면 다른 쪽이 바로 바뀝니다.</p>
+</div>
+<h2>자주 찾는 아파트 면적</h2>
+<div class="scroll"><table><tr><th>전용면적</th><th>전용 평수</th><th>흔히 부르는 평형</th></tr>
+<tr><td>39㎡</td><td>11.8평</td><td>15~17평형</td></tr><tr><td>49㎡</td><td>14.8평</td><td>19~21평형</td></tr><tr><td>59㎡</td><td>17.8평</td><td>24~26평형</td></tr><tr><td>74㎡</td><td>22.4평</td><td>29~31평형</td></tr><tr><td>84㎡</td><td>25.4평</td><td>32~35평형</td></tr><tr><td>101㎡</td><td>30.6평</td><td>38~40평형</td></tr><tr><td>114㎡</td><td>34.5평</td><td>43~45평형</td></tr></table></div>
+<p class="note">'흔히 부르는 평형'은 공급면적 기준이라 단지마다 다릅니다. 정확한 공급면적은 분양 공고나 건축물대장에서 확인하세요.</p>
+<h2>평과 제곱미터</h2>
+<p>1평은 사방 6자(약 1.818m) 정사각형의 넓이로, 약 3.3058㎡입니다. 2007년부터 공식 문서에는 제곱미터만 쓰도록 했지만, 일상에서는 여전히 평을 많이 씁니다. 국민주택 규모로 불리는 전용 85㎡ 이하 기준도 이 계산기로 평으로 바꿔 볼 수 있습니다.</p>
+<script src="/app.js"></script>
+<script>
+const R=400/121; // 1평 = 400/121 ㎡ ≈ 3.305785
+const r2=x=>Math.round(x*100)/100;
+$('#m').oninput=()=>{$('#p').value=$('#m').value===''?'':r2($('#m').value/R)};
+$('#p').oninput=()=>{$('#m').value=$('#p').value===''?'':r2($('#p').value*R)};
+$('#m').oninput();
+</script>
+<section class="faq"><h2>자주 묻는 질문</h2><details><summary>1평은 몇 제곱미터인가요?</summary><p>1평은 약 3.3058㎡입니다. 제곱미터를 평으로 바꿀 때는 3.3058로 나누거나 0.3025를 곱합니다.</p></details><details><summary>84㎡ 아파트는 몇 평인가요?</summary><p>전용면적 84㎡는 약 25.4평입니다. 여기에 계단·복도 같은 공용면적을 더한 공급면적으로 흔히 &#x27;33~34평형&#x27;이라고 부릅니다.</p></details><details><summary>전용면적과 공급면적은 뭐가 다른가요?</summary><p>전용면적은 우리 집만 쓰는 실내 면적이고, 공급면적은 전용면적에 주거공용면적(계단, 복도, 엘리베이터 등)을 더한 것입니다. 발코니 확장 면적은 둘 다 포함되지 않습니다.</p></details></section><section><h2>다른 계산기</h2><div class="grid"><a class="card c2" href="/english-name.html" data-k="영문 이름 변환기 한글 이름 → 영어 (여권 표기)"><i class="ic">🔤</i><span class="tx"><b>영문 이름 변환기</b><span>한글 이름 → 영어 (여권 표기)</span></span></a><a class="card c2" href="/charcount.html" data-k="글자수 세기 공백 포함·제외, 바이트, 원고지"><i class="ic">✍️</i><span class="tx"><b>글자수 세기</b><span>공백 포함·제외, 바이트, 원고지</span></span></a><a class="card c1" href="/age.html" data-k="만 나이 계산기 만 나이·연 나이·띠·다음 생일"><i class="ic">🎂</i><span class="tx"><b>만 나이 계산기</b><span>만 나이·연 나이·띠·다음 생일</span></span></a><a class="card c4" href="/bmr.html" data-k="기초대사량 계산기 BMR·하루 필요 칼로리"><i class="ic">🔥</i><span class="tx"><b>기초대사량 계산기</b><span>BMR·하루 필요 칼로리</span></span></a><a class="card c5" href="/car-tax.html" data-k="자동차세 계산기 배기량·연식별 연 자동차세"><i class="ic">🚗</i><span class="tx"><b>자동차세 계산기</b><span>배기량·연식별 연 자동차세</span></span></a><a class="card c6" href="/ladder.html" data-k="사다리타기 이름·결과 넣고 바로 하는 사다리 게임"><i class="ic">🪜</i><span class="tx"><b>사다리타기</b><span>이름·결과 넣고 바로 하는 사다리 게임</span></span></a></div></section><p class="updated">최종 확인: 2026-10-17</p></main><footer class="foot"><div class="wrap">
+<nav><a href="/about.html">소개</a><a href="/privacy.html">개인정보처리방침</a><a href="/terms.html">이용약관</a><a href="/contact.html">문의</a></nav>
+<p>© 2026 생활계산소. 계산 결과는 참고용이며, 중요한 결정은 공식 기관·전문가에게 확인하세요.</p>
+</div></footer>
+</body></html>

@@ -1,0 +1,48 @@
+<!doctype html>
+<html lang="ko"><head>
+<meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1">
+<title>연차 계산기 · 연차수당 계산기 - 입사일 기준 연차 개수</title>
+<meta name="description" content="입사일만 넣으면 근속 연수별 연차휴가 일수(1년 미만 월차 포함, 최대 25일)를 계산하고, 남은 연차를 돈으로 받으면 얼마인지 연차수당도 계산합니다.">
+<link rel="canonical" href="https://calculate119.com/annual-leave.html">
+<meta property="og:type" content="website"><meta property="og:site_name" content="생활계산소">
+<meta property="og:title" content="연차 계산기 · 연차수당 계산기 - 입사일 기준 연차 개수"><meta property="og:description" content="입사일만 넣으면 근속 연수별 연차휴가 일수(1년 미만 월차 포함, 최대 25일)를 계산하고, 남은 연차를 돈으로 받으면 얼마인지 연차수당도 계산합니다.">
+<meta property="og:url" content="https://calculate119.com/annual-leave.html"><meta property="og:locale" content="ko_KR">
+<link rel="icon" href="/favicon.svg" type="image/svg+xml">
+<link rel="stylesheet" href="/style.css">
+<script type="application/ld+json">{"@context": "https://schema.org", "@type": "WebApplication", "name": "연차 · 연차수당 계산기", "url": "https://calculate119.com/annual-leave.html", "applicationCategory": "UtilitiesApplication", "operatingSystem": "Any", "inLanguage": "ko", "offers": {"@type": "Offer", "price": "0", "priceCurrency": "KRW"}, "description": "입사일만 넣으면 근속 연수별 연차휴가 일수(1년 미만 월차 포함, 최대 25일)를 계산하고, 남은 연차를 돈으로 받으면 얼마인지 연차수당도 계산합니다."}</script><script type="application/ld+json">{"@context": "https://schema.org", "@type": "FAQPage", "mainEntity": [{"@type": "Question", "name": "입사 1년 미만이면 연차가 몇 개인가요?", "acceptedAnswer": {"@type": "Answer", "text": "1개월 개근할 때마다 1일씩, 최대 11일이 생깁니다(근로기준법 제60조 제2항)."}}, {"@type": "Question", "name": "1년을 채우면 몇 개가 생기나요?", "acceptedAnswer": {"@type": "Answer", "text": "1년 동안 80% 이상 출근하면 15일이 생깁니다. 그 뒤로 2년마다 1일씩 늘어 최대 25일입니다. 고용노동부 해석상 1년을 채운 다음 날까지 근로관계가 이어져야 15일이 생깁니다."}}, {"@type": "Question", "name": "연차수당은 어떻게 계산하나요?", "acceptedAnswer": {"@type": "Answer", "text": "쓰지 못한 연차 일수 × 1일 통상임금입니다. 주 40시간 근무자는 보통 월 통상임금 ÷ 209 × 8로 1일 통상임금을 구합니다."}}, {"@type": "Question", "name": "5인 미만 회사도 연차가 있나요?", "acceptedAnswer": {"@type": "Answer", "text": "상시 근로자 5인 미만 사업장에는 연차휴가 규정이 적용되지 않습니다(회사 규정으로 따로 주는 경우는 예외)."}}]}</script>
+</head><body>
+<header class="top"><div class="wrap"><a class="logo" href="/">생활계산소</a></div></header>
+<main class="wrap c3"><p class="crumb"><a href="/">홈</a> › 돈·숫자</p><h1 class="th"><i class="ic">🏖️</i>연차 · 연차수당 계산기</h1><div class="tool">
+ <div class="row"><label>입사일<input type="date" id="s" value="2023-03-02"></label><label>기준일<input type="date" id="r" data-today></label></div>
+ <div class="result" id="out"></div>
+ <h3>연차수당</h3>
+ <div class="row"><label>월 통상임금 (원)<input class="money" id="w" value="3,000,000" inputmode="numeric"></label><label>못 쓴 연차 (일)<input type="number" id="u" value="5" min="0" step="0.5"></label><label>주 소정근로시간<input type="number" id="h" value="40" min="1" max="40"></label></div>
+ <div class="result" id="pay"></div>
+</div>
+<div class="scroll"><table id="tbl"></table></div>
+<h2>연차휴가 발생 기준 (근로기준법 제60조)</h2>
+<ul><li><b>1년 미만</b>: 1개월 개근 시 1일, 최대 11일</li><li><b>1년 이상</b> (출근율 80% 이상): 15일</li><li><b>3년 이상</b>: 최초 1년을 넘는 근속 2년마다 1일 가산, 최대 25일</li></ul>
+<p class="note">입사일 기준으로 계산합니다. 회사가 회계연도(1월 1일) 기준으로 운영하면 실제 일수가 다를 수 있으니 취업규칙을 확인하세요. 출근율 80% 미만인 해는 개근한 달 수만큼만 생깁니다.</p>
+<script src="/app.js"></script>
+<script>
+function days(y){return y<1?0:Math.min(25,15+Math.floor((y-1)/2));}
+function calc(){const s=d($('#s').value),r=d($('#r').value);if(isNaN(s)||isNaN(r)||r<s)return;
+  let yrs=r.getFullYear()-s.getFullYear();if(new Date(r.getFullYear(),s.getMonth(),s.getDate())>r)yrs--;
+  let mon=(r.getFullYear()-s.getFullYear())*12+r.getMonth()-s.getMonth();if(r.getDate()<s.getDate())mon--;
+  let html;
+  if(yrs<1)html=`<div class="big">${Math.min(11,mon)}일</div><p>입사 ${mon}개월째 · 1년 미만이라 개근한 달마다 1일 (최대 11일)</p>`;
+  else{const nx=new Date(s.getFullYear()+yrs+1,s.getMonth(),s.getDate());html=`<div class="big">${days(yrs)}일</div><p>근속 ${yrs}년차 연차 · 다음 발생일 ${fmt(nx)}에 ${days(yrs+1)}일</p>`;}
+  $('#out').innerHTML=html;
+  const rows=[`<tr><td>1년 미만</td><td>최대 11일</td><td>${fmt(s)} ~</td></tr>`];
+  for(let y=1;y<=21;y+=(y<5?1:2)){rows.push(`<tr${y===yrs?' style="font-weight:700"':''}><td>${y}년 근속</td><td>${days(y)}일</td><td>${fmt(new Date(s.getFullYear()+y,s.getMonth(),s.getDate()))}</td></tr>`);}
+  $('#tbl').innerHTML='<tr><th>근속</th><th>연차</th><th>발생일</th></tr>'+rows.join('');
+  const w=num($('#w')),h=Math.min(40,+$('#h').value||40),base=h*(1+1/5)*(365/7/12);// 월 소정근로시간 (주휴 포함)
+  const hour=w/Math.round(base),day=hour*(h/5),pay=day*(+$('#u').value||0);
+  $('#pay').innerHTML=`<div class="big">${won(pay)}원</div><p>1일 통상임금 ${won(day)}원 (시급 ${won(hour)}원 × ${h/5}시간) · 월 기준시간 ${Math.round(base)}시간</p>`;}
+document.querySelectorAll('input').forEach(i=>i.addEventListener('input',calc));calc();
+</script>
+<section class="faq"><h2>자주 묻는 질문</h2><details><summary>입사 1년 미만이면 연차가 몇 개인가요?</summary><p>1개월 개근할 때마다 1일씩, 최대 11일이 생깁니다(근로기준법 제60조 제2항).</p></details><details><summary>1년을 채우면 몇 개가 생기나요?</summary><p>1년 동안 80% 이상 출근하면 15일이 생깁니다. 그 뒤로 2년마다 1일씩 늘어 최대 25일입니다. 고용노동부 해석상 1년을 채운 다음 날까지 근로관계가 이어져야 15일이 생깁니다.</p></details><details><summary>연차수당은 어떻게 계산하나요?</summary><p>쓰지 못한 연차 일수 × 1일 통상임금입니다. 주 40시간 근무자는 보통 월 통상임금 ÷ 209 × 8로 1일 통상임금을 구합니다.</p></details><details><summary>5인 미만 회사도 연차가 있나요?</summary><p>상시 근로자 5인 미만 사업장에는 연차휴가 규정이 적용되지 않습니다(회사 규정으로 따로 주는 경우는 예외).</p></details></section><section><h2>다른 계산기</h2><div class="grid"><a class="card c3" href="/vat.html" data-k="부가세 계산기 공급가액 ↔ 합계금액, VAT 10%"><i class="ic">🧾</i><span class="tx"><b>부가세 계산기</b><span>공급가액 ↔ 합계금액, VAT 10%</span></span></a><a class="card c3" href="/installment.html" data-k="할부 계산기 카드 할부 수수료·월 납부액"><i class="ic">💳</i><span class="tx"><b>할부 계산기</b><span>카드 할부 수수료·월 납부액</span></span></a><a class="card c3" href="/margin.html" data-k="마진율 계산기 마진율·마크업, 목표 판매가"><i class="ic">📈</i><span class="tx"><b>마진율 계산기</b><span>마진율·마크업, 목표 판매가</span></span></a><a class="card c3" href="/percent.html" data-k="퍼센트 계산기 비율·증감률·할인가"><i class="ic">％</i><span class="tx"><b>퍼센트 계산기</b><span>비율·증감률·할인가</span></span></a><a class="card c3" href="/loan.html" data-k="대출 이자 계산기 월 상환액·총 이자·상환표"><i class="ic">🏦</i><span class="tx"><b>대출 이자 계산기</b><span>월 상환액·총 이자·상환표</span></span></a><a class="card c3" href="/lotto.html" data-k="로또 실수령액 · 세금 계산기 당첨금 세금·실수령액"><i class="ic">🍀</i><span class="tx"><b>로또 실수령액 · 세금 계산기</b><span>당첨금 세금·실수령액</span></span></a></div></section><p class="updated">최종 확인: 2026-10-17</p></main><footer class="foot"><div class="wrap">
+<nav><a href="/about.html">소개</a><a href="/privacy.html">개인정보처리방침</a><a href="/terms.html">이용약관</a><a href="/contact.html">문의</a></nav>
+<p>© 2026 생활계산소. 계산 결과는 참고용이며, 중요한 결정은 공식 기관·전문가에게 확인하세요.</p>
+</div></footer>
+</body></html>
