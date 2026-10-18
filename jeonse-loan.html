@@ -1,0 +1,36 @@
+<!doctype html>
+<html lang="ko"><head>
+<meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1">
+<title>전세대출 이자 계산기 - 월 이자·총 이자 (만기일시상환)</title>
+<meta name="description" content="전세자금대출 금액과 연 이율, 기간을 넣으면 매달 내는 이자와 연 이자, 총 이자를 계산합니다. 만기일시상환과 원리금균등 비교 포함.">
+<link rel="canonical" href="https://calculate119.com/jeonse-loan.html">
+<meta property="og:type" content="website"><meta property="og:site_name" content="생활계산소">
+<meta property="og:title" content="전세대출 이자 계산기 - 월 이자·총 이자 (만기일시상환)"><meta property="og:description" content="전세자금대출 금액과 연 이율, 기간을 넣으면 매달 내는 이자와 연 이자, 총 이자를 계산합니다. 만기일시상환과 원리금균등 비교 포함.">
+<meta property="og:url" content="https://calculate119.com/jeonse-loan.html"><meta property="og:locale" content="ko_KR">
+<link rel="icon" href="/favicon.svg" type="image/svg+xml">
+<link rel="stylesheet" href="/style.css?v=e6af122c">
+<meta name="google-site-verification" content="Ud0e2f4xRsGiShvNCp4vhMmUsxDJ_Z0BHIBNY9R40Zc"><meta name="naver-site-verification" content="bd5cd166791467b34ebfe7deb4d3ea3daf29eee6"><script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-3494310005301969" crossorigin="anonymous"></script><script async src="https://www.googletagmanager.com/gtag/js?id=G-V4F55DEC9Y"></script><script>window.dataLayer=window.dataLayer||[];function gtag(){dataLayer.push(arguments);}gtag('js',new Date());gtag('config','G-V4F55DEC9Y');</script><script type="application/ld+json">{"@context": "https://schema.org", "@type": "WebApplication", "name": "전세대출 이자 계산기", "url": "https://calculate119.com/jeonse-loan.html", "applicationCategory": "UtilitiesApplication", "operatingSystem": "Any", "inLanguage": "ko", "offers": {"@type": "Offer", "price": "0", "priceCurrency": "KRW"}, "description": "전세자금대출 금액과 연 이율, 기간을 넣으면 매달 내는 이자와 연 이자, 총 이자를 계산합니다. 만기일시상환과 원리금균등 비교 포함."}</script><script type="application/ld+json">{"@context": "https://schema.org", "@type": "FAQPage", "mainEntity": [{"@type": "Question", "name": "전세대출은 보통 어떻게 갚나요?", "acceptedAnswer": {"@type": "Answer", "text": "대부분 만기일시상환입니다. 계약 기간(보통 2년) 동안 이자만 내다가 만기에 원금을 한 번에 갚고, 전세 보증금을 돌려받아 상환하는 구조입니다."}}, {"@type": "Question", "name": "월 이자는 어떻게 계산하나요?", "acceptedAnswer": {"@type": "Answer", "text": "대출금 × 연 이율 ÷ 12 입니다. 1억 원을 연 4%로 빌리면 월 약 33만 3천 원입니다. 실제로는 은행이 일수 기준으로 계산해 달마다 조금씩 다릅니다."}}, {"@type": "Question", "name": "실제 청구액과 다를 수 있나요?", "acceptedAnswer": {"@type": "Answer", "text": "네. 변동금리라면 이율이 바뀌고, 보증료·인지세 같은 부대비용은 포함하지 않았습니다. 대략의 부담을 가늠하는 용도로 쓰세요."}}]}</script>
+</head><body>
+<header class="top"><div class="wrap"><a class="logo" href="/">생활계산소</a></div></header>
+<main class="wrap c3"><p class="crumb"><a href="/">홈</a> › 돈·숫자</p><h1 class="th"><i class="ic">🏠</i>전세대출 이자 계산기</h1><div class="tool">
+ <div class="row"><label>대출 금액 (원)<input class="money" id="p" value="200,000,000" inputmode="numeric"></label><label>연 이율 (%)<input type="number" id="r" value="4" step="0.01"></label></div>
+ <div class="row"><label>기간 (개월)<input type="number" id="n" value="24"></label><label>상환 방식<select id="k"><option value="bl">만기일시 (이자만)</option><option value="eq">원리금균등</option></select></label></div>
+ <div class="result" id="out"></div>
+</div>
+<h2>전세대출 이자 계산법</h2>
+<ul><li><b>만기일시상환</b>: 월 이자 = 대출금 × 연 이율 ÷ 12. 원금은 만기에 한 번에 갚습니다.</li>
+<li><b>원리금균등</b>: 매달 원금과 이자를 합쳐 같은 금액을 냅니다. 월 상환액 = 대출금 × 월이율 × (1+월이율)<sup>개월</sup> ÷ ((1+월이율)<sup>개월</sup> − 1).</li></ul>
+<p>월세와 비교할 때는 월 이자에 전세 보증금 중 내 돈으로 낸 부분의 기회비용(예금 이자 등)을 더해서 보면 됩니다.</p>
+<script src="/app.js"></script>
+<script>
+function calc(){const P=num($('#p')),i=num($('#r'))/1200,n=Math.max(1,Math.round(num($('#n')))),k=$('#k').value;
+  let m,ti;
+  if(k==='bl'){m=P*i;ti=m*n;}else{m=i?P*i*Math.pow(1+i,n)/(Math.pow(1+i,n)-1):P/n;ti=m*n-P;}
+  $('#out').innerHTML=`<div class="stats"><div><b>${won(m)}원</b><span>${k==='bl'?'매달 이자':'월 상환액'}</span></div><div><b>${won(m*12)}원</b><span>${k==='bl'?'1년 이자':'1년 상환액'}</span></div><div><b>${won(ti)}원</b><span>총 이자 (${n}개월)</span></div>`+(k==='bl'?`<div><b>${won(P)}원</b><span>만기에 갚을 원금</span></div>`:`<div><b>${won(P+ti)}원</b><span>총 상환액</span></div>`)+`</div>`;}
+document.querySelectorAll('input,select').forEach(x=>x.addEventListener('input',calc));calc();
+</script>
+<section class="faq"><h2>자주 묻는 질문</h2><details><summary>전세대출은 보통 어떻게 갚나요?</summary><p>대부분 만기일시상환입니다. 계약 기간(보통 2년) 동안 이자만 내다가 만기에 원금을 한 번에 갚고, 전세 보증금을 돌려받아 상환하는 구조입니다.</p></details><details><summary>월 이자는 어떻게 계산하나요?</summary><p>대출금 × 연 이율 ÷ 12 입니다. 1억 원을 연 4%로 빌리면 월 약 33만 3천 원입니다. 실제로는 은행이 일수 기준으로 계산해 달마다 조금씩 다릅니다.</p></details><details><summary>실제 청구액과 다를 수 있나요?</summary><p>네. 변동금리라면 이율이 바뀌고, 보증료·인지세 같은 부대비용은 포함하지 않았습니다. 대략의 부담을 가늠하는 용도로 쓰세요.</p></details></section><section><h2>다른 계산기</h2><div class="grid"><a class="card c3" href="/vat.html" data-k="부가세 계산기 공급가액 ↔ 합계금액, VAT 10%"><i class="ic">🧾</i><span class="tx"><b>부가세 계산기</b><span>공급가액 ↔ 합계금액, VAT 10%</span></span></a><a class="card c3" href="/annual-leave.html" data-k="연차 · 연차수당 계산기 입사일 기준 연차 일수, 연차수당"><i class="ic">🏖️</i><span class="tx"><b>연차 · 연차수당 계산기</b><span>입사일 기준 연차 일수, 연차수당</span></span></a><a class="card c3" href="/installment.html" data-k="할부 계산기 카드 할부 수수료·월 납부액"><i class="ic">💳</i><span class="tx"><b>할부 계산기</b><span>카드 할부 수수료·월 납부액</span></span></a><a class="card c3" href="/margin.html" data-k="마진율 계산기 마진율·마크업, 목표 판매가"><i class="ic">📈</i><span class="tx"><b>마진율 계산기</b><span>마진율·마크업, 목표 판매가</span></span></a><a class="card c3" href="/capital-gains-tax.html" data-k="양도소득세 계산기 1주택 비과세·장특공제·중과·세제개편안 비교"><i class="ic">🏠</i><span class="tx"><b>양도소득세 계산기</b><span>1주택 비과세·장특공제·중과·세제개편안 비교</span></span></a><a class="card c3" href="/freelancer-tax.html" data-k="3.3% 프리랜서 세금 계산기 3.3%·8.8% 떼고 실수령액, 역산"><i class="ic">💼</i><span class="tx"><b>3.3% 프리랜서 세금 계산기</b><span>3.3%·8.8% 떼고 실수령액, 역산</span></span></a></div></section><p class="updated">최종 확인: 2026-10-19</p></main><footer class="foot"><div class="wrap">
+<nav><a href="/about.html">소개</a><a href="/privacy.html">개인정보처리방침</a><a href="/terms.html">이용약관</a><a href="/contact.html">문의</a></nav>
+<p>© 2026 생활계산소. 계산 결과는 참고용이며, 중요한 결정은 공식 기관·전문가에게 확인하세요.</p>
+</div></footer>
+</body></html>
