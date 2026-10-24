@@ -1,0 +1,174 @@
+<!doctype html>
+<html lang="ko"><head>
+<meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1">
+<title>점심 메뉴 추천 · 저녁 메뉴 추천 - 오늘 뭐 먹지 랜덤 뽑기</title>
+<meta name="description" content="오늘 뭐 먹지 고민될 때 버튼 한 번으로 점심·저녁·야식 메뉴를 추천합니다. 한식·중식·일식·양식·분식 종류와 혼밥·다이어트·해장·비 오는 날 등 상황을 골라 랜덤으로 뽑아 보세요.">
+<link rel="canonical" href="https://calculate119.com/menu.html">
+<meta property="og:type" content="website"><meta property="og:site_name" content="생활계산소">
+<meta property="og:title" content="점심 메뉴 추천 · 저녁 메뉴 추천 - 오늘 뭐 먹지 랜덤 뽑기"><meta property="og:description" content="오늘 뭐 먹지 고민될 때 버튼 한 번으로 점심·저녁·야식 메뉴를 추천합니다. 한식·중식·일식·양식·분식 종류와 혼밥·다이어트·해장·비 오는 날 등 상황을 골라 랜덤으로 뽑아 보세요.">
+<meta property="og:url" content="https://calculate119.com/menu.html"><meta property="og:locale" content="ko_KR">
+<link rel="icon" href="/favicon.svg" type="image/svg+xml">
+<link rel="stylesheet" href="/style.css?v=eb1b2141">
+<meta name="google-site-verification" content="Ud0e2f4xRsGiShvNCp4vhMmUsxDJ_Z0BHIBNY9R40Zc"><meta name="naver-site-verification" content="bd5cd166791467b34ebfe7deb4d3ea3daf29eee6"><script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-3494310005301969" crossorigin="anonymous"></script><script async src="https://www.googletagmanager.com/gtag/js?id=G-V4F55DEC9Y"></script><script>window.dataLayer=window.dataLayer||[];function gtag(){dataLayer.push(arguments);}gtag('js',new Date());gtag('config','G-V4F55DEC9Y');</script><script type="application/ld+json">{"@context": "https://schema.org", "@type": "WebApplication", "name": "점심·저녁 메뉴 추천", "url": "https://calculate119.com/menu.html", "applicationCategory": "UtilitiesApplication", "operatingSystem": "Any", "inLanguage": "ko", "offers": {"@type": "Offer", "price": "0", "priceCurrency": "KRW"}, "description": "오늘 뭐 먹지 고민될 때 버튼 한 번으로 점심·저녁·야식 메뉴를 추천합니다. 한식·중식·일식·양식·분식 종류와 혼밥·다이어트·해장·비 오는 날 등 상황을 골라 랜덤으로 뽑아 보세요."}</script><script type="application/ld+json">{"@context": "https://schema.org", "@type": "FAQPage", "mainEntity": [{"@type": "Question", "name": "메뉴는 어떻게 고르나요?", "acceptedAnswer": {"@type": "Answer", "text": "고른 음식 종류와 상황에 맞는 메뉴 중에서 무작위로 뽑습니다. 매번 결과가 달라지고, 마음에 안 들면 '이건 빼고 다시'를 눌러 후보에서 빼고 다시 뽑을 수 있습니다."}}, {"@type": "Question", "name": "점심과 저녁 추천은 어떻게 다른가요?", "acceptedAnswer": {"@type": "Answer", "text": "점심은 빨리 먹기 좋은 메뉴, 저녁은 든든하거나 여럿이 먹기 좋은 메뉴, 야식은 배달로 많이 먹는 메뉴에 더 무게를 둡니다."}}, {"@type": "Question", "name": "메뉴는 몇 가지나 있나요?", "acceptedAnswer": {"@type": "Answer", "text": "한식·중식·일식·양식·분식·아시안·패스트푸드 100가지가 넘는 메뉴가 들어 있고, 각 메뉴에 혼밥·다이어트·해장·국물 같은 특징이 붙어 있습니다."}}, {"@type": "Question", "name": "여럿이 메뉴를 정할 때도 쓸 수 있나요?", "acceptedAnswer": {"@type": "Answer", "text": "네. 후보 3개를 함께 보여 주니 그중에서 고르거나, 사다리타기로 정해도 재미있습니다."}}]}</script>
+</head><body>
+<header class="top"><div class="wrap"><a class="logo" href="/">생활계산소</a></div></header>
+<main class="wrap c7"><p class="crumb"><a href="/">홈</a> › 오늘 추천</p><h1 class="th"><i class="ic">🍚</i>점심·저녁 메뉴 추천</h1><div class="tool">
+ <div class="tabs" id="meal"><button type="button" data-v="점심" class="on">점심</button><button type="button" data-v="저녁">저녁</button><button type="button" data-v="야식">야식</button></div>
+ <p class="note" style="margin:12px 0 6px">음식 종류 (여러 개 선택)</p>
+ <div class="tabs" id="kind"></div>
+ <p class="note" style="margin:12px 0 6px">상황 (하나 선택)</p>
+ <div class="tabs" id="mood"></div>
+ <div style="display:flex;gap:8px;flex-wrap:wrap;margin-top:14px"><button id="go" type="button">🎲 메뉴 뽑기</button><button class="ghost" id="ex" type="button" hidden>이건 빼고 다시</button></div>
+ <div class="result" id="out"></div>
+</div>
+<h2>메뉴 고르기 팁</h2>
+<ul><li><b>비 오는 날</b>: 파전·칼국수·짬뽕처럼 따뜻하고 기름진 음식이 인기예요.</li><li><b>추운 날</b>: 국밥·찌개·전골 같은 국물 요리로 몸을 데우세요.</li><li><b>더운 날</b>: 냉면·콩국수·메밀소바처럼 시원한 면 요리가 좋아요.</li><li><b>해장</b>: 콩나물국밥·북엇국·쌀국수처럼 맑고 뜨거운 국물이 속을 풀어 줍니다.</li></ul>
+<p>여럿이 정하기 어려우면 <a href="/ladder.html">사다리타기</a>나 <a href="/random.html">랜덤 뽑기</a>로 정해 보세요. 오늘 날씨에 맞는 옷은 <a href="/outfit.html">기온별 옷차림</a>에서 확인할 수 있어요.</p>
+<script src="/app.js"></script>
+<script>
+// 이름|종류|특징 (혼밥 다이어트 해장 매운 국물 비 추위 더위 든든 야식 빠름 여럿)
+const M=`김치찌개|한식|혼밥 매운 국물 추위 든든 빠름
+된장찌개|한식|혼밥 국물 추위 빠름
+순두부찌개|한식|혼밥 매운 국물 추위 빠름
+부대찌개|한식|매운 국물 추위 든든 여럿
+제육볶음|한식|혼밥 매운 든든 빠름
+비빔밥|한식|혼밥 다이어트 빠름
+돌솥비빔밥|한식|혼밥 추위
+불고기|한식|든든 여럿
+김치볶음밥|한식|혼밥 빠름
+돼지국밥|한식|혼밥 해장 국물 추위 든든
+순대국|한식|혼밥 해장 국물 추위 든든
+콩나물국밥|한식|혼밥 해장 국물 빠름
+뼈해장국|한식|해장 국물 추위 든든
+설렁탕|한식|혼밥 해장 국물 추위
+갈비탕|한식|국물 추위 든든
+육개장|한식|매운 해장 국물 추위
+북엇국|한식|혼밥 해장 국물 다이어트
+삼계탕|한식|국물 더위 든든
+감자탕|한식|국물 추위 든든 여럿 야식
+닭갈비|한식|매운 든든 여럿
+닭볶음탕|한식|매운 든든 여럿
+찜닭|한식|든든 여럿
+삼겹살|한식|든든 여럿 비
+갈비|한식|든든 여럿
+보쌈|한식|든든 여럿 야식
+족발|한식|든든 여럿 야식
+곱창|한식|매운 여럿 야식
+낙곱새|한식|매운 든든 여럿
+칼국수|한식|혼밥 국물 비 추위
+수제비|한식|혼밥 국물 비 추위
+파전|한식|비 여럿
+김치전|한식|비 여럿
+물냉면|한식|혼밥 더위 해장 빠름
+비빔냉면|한식|혼밥 매운 더위 빠름
+콩국수|한식|혼밥 더위 다이어트
+막국수|한식|혼밥 더위 다이어트
+쌈밥|한식|다이어트 여럿
+생선구이|한식|혼밥 다이어트
+고등어조림|한식|혼밥 든든
+갈치조림|한식|매운 든든 여럿
+오징어볶음|한식|혼밥 매운 빠름
+쭈꾸미볶음|한식|매운 여럿
+아구찜|한식|매운 여럿
+해물탕|한식|국물 추위 여럿
+동태찌개|한식|매운 국물 해장 추위
+청국장|한식|국물 추위
+샤브샤브|한식|다이어트 국물 추위 여럿
+닭한마리|한식|국물 추위 여럿
+곰탕|한식|혼밥 국물 해장
+도시락|한식|혼밥 빠름
+짜장면|중식|혼밥 빠름 비
+짬뽕|중식|매운 국물 해장 비 추위
+탕수육|중식|여럿 야식
+볶음밥|중식|혼밥 빠름
+마라탕|중식|혼밥 매운 국물 추위
+마라샹궈|중식|매운 여럿
+꿔바로우|중식|여럿
+양꼬치|중식|여럿 야식
+마파두부|중식|혼밥 매운
+깐풍기|중식|여럿 야식
+울면|중식|국물 비
+훠궈|중식|매운 국물 추위 여럿
+초밥|일식|혼밥 다이어트
+돈가스|일식|혼밥 든든 빠름
+라멘|일식|혼밥 국물 추위 해장
+우동|일식|혼밥 국물 비 빠름
+규동|일식|혼밥 빠름
+가츠동|일식|혼밥 든든 빠름
+텐동|일식|혼밥 든든
+메밀소바|일식|혼밥 더위 다이어트 빠름
+회덮밥|일식|혼밥 다이어트
+사케동|일식|혼밥
+오코노미야키|일식|여럿 비
+연어 포케|일식|혼밥 다이어트 더위 빠름
+모둠회|일식|여럿 야식
+카레라이스|일식|혼밥 빠름
+파스타|양식|혼밥
+피자|양식|여럿 야식
+리조또|양식|혼밥
+스테이크|양식|든든 여럿
+햄버그스테이크|양식|혼밥 든든
+샐러드|양식|혼밥 다이어트 더위 빠름
+샌드위치|양식|혼밥 다이어트 빠름
+오므라이스|양식|혼밥
+그라탕|양식|추위
+브런치|양식|여럿
+수제버거|패스트푸드|혼밥 든든
+햄버거|패스트푸드|혼밥 빠름 야식
+치킨|패스트푸드|여럿 야식 비
+양념치킨|패스트푸드|여럿 야식
+타코|패스트푸드|혼밥
+부리토|패스트푸드|혼밥 든든 빠름
+떡볶이|분식|혼밥 매운 야식 비
+라볶이|분식|혼밥 매운
+김밥|분식|혼밥 다이어트 빠름
+라면|분식|혼밥 국물 해장 야식 빠름 비
+순대|분식|혼밥 야식
+튀김|분식|비 야식
+쫄면|분식|혼밥 매운 더위
+잔치국수|분식|혼밥 국물 빠름
+비빔국수|분식|혼밥 매운 더위 빠름
+어묵탕|분식|국물 추위 야식
+쌀국수|아시안|혼밥 국물 해장 다이어트
+분짜|아시안|혼밥 더위
+팟타이|아시안|혼밥
+똠양꿍|아시안|매운 국물
+커리|아시안|혼밥 든든
+반미|아시안|혼밥 빠름
+나시고랭|아시안|혼밥
+월남쌈|아시안|다이어트 여럿 더위
+닭가슴살 샐러드|양식|혼밥 다이어트
+포케|양식|혼밥 다이어트 더위`.split('\n').map(l=>{const[n,k,t]=l.split('|');return{n,k,t:t.split(' ')};});
+const KINDS=['한식','중식','일식','양식','분식','아시안','패스트푸드'];
+const MOODS=[['','전체'],['혼밥','혼밥'],['다이어트','다이어트'],['해장','해장'],['매운','매운 거'],['국물','국물'],['든든','든든하게'],['빠름','빨리'],['여럿','여럿이'],['비','비 오는 날'],['추위','추운 날'],['더위','더운 날']];
+// 끼니별 가중치: 해당 특징이 있으면 더 자주 뽑힘
+const MEAL={점심:['빠름','혼밥'],저녁:['든든','여럿'],야식:['야식']};
+let meal='점심',mood='',kinds=new Set(KINDS),ex=new Set(),last=null;
+$('#kind').innerHTML=KINDS.map(k=>`<button type="button" class="on" data-v="${k}">${k}</button>`).join('');
+$('#mood').innerHTML=MOODS.map(([v,l])=>`<button type="button" data-v="${v}" class="${v===''?'on':''}">${l}</button>`).join('');
+const rnd=()=>crypto.getRandomValues(new Uint32Array(1))[0]/4294967296;
+$('#meal').onclick=e=>{const b=e.target.closest('button');if(!b)return;meal=b.dataset.v;$('#meal').querySelectorAll('button').forEach(x=>x.classList.toggle('on',x===b));};
+$('#kind').onclick=e=>{const b=e.target.closest('button');if(!b)return;const v=b.dataset.v;if(kinds.has(v)){if(kinds.size===1)return;kinds.delete(v);}else kinds.add(v);b.classList.toggle('on',kinds.has(v));};
+$('#mood').onclick=e=>{const b=e.target.closest('button');if(!b)return;mood=b.dataset.v;$('#mood').querySelectorAll('button').forEach(x=>x.classList.toggle('on',x===b));};
+function pool(){return M.filter(m=>kinds.has(m.k)&&(!mood||m.t.includes(mood))&&!ex.has(m.n)&&(meal==='야식'||!(m.t.length===1&&m.t[0]==='야식')));}
+function draw(list,n){const w=list.map(m=>1+2*MEAL[meal].filter(t=>m.t.includes(t)).length),out=[];const L=[...list],W=[...w];
+  while(out.length<n&&L.length){let s=W.reduce((a,b)=>a+b,0),r=rnd()*s,i=0;while(r>=W[i]){r-=W[i];i++;}out.push(L[i]);L.splice(i,1);W.splice(i,1);}return out;}
+const esc=s=>s.replace(/[&<>"]/g,c=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;'}[c]));
+const map=n=>`https://map.naver.com/p/search/${encodeURIComponent(n)}`;
+function go(){const p=pool();
+  if(!p.length){$('#out').innerHTML='조건에 맞는 메뉴가 없어요. 종류를 더 고르거나 상황을 \'전체\'로 바꿔 보세요.'+(ex.size?` <button class="ghost" type="button" id="reset">뺀 메뉴 ${ex.size}개 되살리기</button>`:'');const r=$('#reset');if(r)r.onclick=()=>{ex.clear();go();};$('#ex').hidden=true;return;}
+  const pick=draw(p,3),btn=$('#go');btn.disabled=true;$('#ex').hidden=true;let k=0;
+  const spin=setInterval(()=>{$('#out').innerHTML=`<div class="big">${esc(p[Math.floor(rnd()*p.length)].n)}</div>`;if(++k>=14){clearInterval(spin);show(pick,p.length);btn.disabled=false;}},70);}
+function show(pick,total){last=pick[0].n;const m=pick[0];
+  $('#out').innerHTML=`<p class="note" style="margin:0 0 4px">오늘의 ${meal} 메뉴는</p><div class="big">${esc(m.n)}</div><p style="margin:6px 0 0" class="note">${m.k} · ${m.t.filter(t=>t!=='야식'||meal==='야식').map(t=>MOODS.find(x=>x[0]===t)?.[1]||t).join(' · ')}</p>`
+    +`<p style="margin:12px 0 0"><a href="${map(m.n+' 맛집')}" target="_blank" rel="noopener">📍 근처 ${esc(m.n)} 맛집 찾기 (네이버 지도)</a></p>`
+    +(pick.length>1?`<p style="margin:12px 0 0">다른 후보: ${pick.slice(1).map(x=>`<b>${esc(x.n)}</b>`).join(', ')}</p>`:'')
+    +`<p class="note" style="margin:8px 0 0">조건에 맞는 메뉴 ${total}개 중에서 뽑았어요.</p>`;
+  $('#ex').hidden=false;$('#ex').textContent=`${m.n} 빼고 다시`;}
+$('#go').onclick=go;$('#ex').onclick=()=>{if(last)ex.add(last);go();};
+</script>
+<section class="faq"><h2>자주 묻는 질문</h2><details><summary>메뉴는 어떻게 고르나요?</summary><p>고른 음식 종류와 상황에 맞는 메뉴 중에서 무작위로 뽑습니다. 매번 결과가 달라지고, 마음에 안 들면 &#x27;이건 빼고 다시&#x27;를 눌러 후보에서 빼고 다시 뽑을 수 있습니다.</p></details><details><summary>점심과 저녁 추천은 어떻게 다른가요?</summary><p>점심은 빨리 먹기 좋은 메뉴, 저녁은 든든하거나 여럿이 먹기 좋은 메뉴, 야식은 배달로 많이 먹는 메뉴에 더 무게를 둡니다.</p></details><details><summary>메뉴는 몇 가지나 있나요?</summary><p>한식·중식·일식·양식·분식·아시안·패스트푸드 100가지가 넘는 메뉴가 들어 있고, 각 메뉴에 혼밥·다이어트·해장·국물 같은 특징이 붙어 있습니다.</p></details><details><summary>여럿이 메뉴를 정할 때도 쓸 수 있나요?</summary><p>네. 후보 3개를 함께 보여 주니 그중에서 고르거나, 사다리타기로 정해도 재미있습니다.</p></details></section><section><h2>다른 계산기</h2><div class="grid"><a class="card c7" href="/outfit.html" data-k="기온별 옷차림 오늘 기온으로 뭐 입을지 추천"><i class="ic">👕</i><span class="tx"><b>기온별 옷차림</b><span>오늘 기온으로 뭐 입을지 추천</span></span></a><a class="card c1" href="/age.html" data-k="만 나이 계산기 만 나이·연 나이·띠·다음 생일"><i class="ic">🎂</i><span class="tx"><b>만 나이 계산기</b><span>만 나이·연 나이·띠·다음 생일</span></span></a><a class="card c4" href="/bmr.html" data-k="기초대사량 계산기 BMR·하루 필요 칼로리"><i class="ic">🔥</i><span class="tx"><b>기초대사량 계산기</b><span>BMR·하루 필요 칼로리</span></span></a><a class="card c5" href="/car-tax.html" data-k="자동차세 계산기 배기량·연식별 연 자동차세"><i class="ic">🚗</i><span class="tx"><b>자동차세 계산기</b><span>배기량·연식별 연 자동차세</span></span></a><a class="card c6" href="/ladder.html" data-k="사다리타기 이름·결과 넣고 바로 하는 사다리 게임"><i class="ic">🪜</i><span class="tx"><b>사다리타기</b><span>이름·결과 넣고 바로 하는 사다리 게임</span></span></a><a class="card c5" href="/car-loan.html" data-k="자동차 할부 계산기 차 할부 월 납입금·총 이자"><i class="ic">🚙</i><span class="tx"><b>자동차 할부 계산기</b><span>차 할부 월 납입금·총 이자</span></span></a></div></section><p class="updated">최종 확인: 2026-10-24</p></main><footer class="foot"><div class="wrap">
+<nav><a href="/about.html">소개</a><a href="/privacy.html">개인정보처리방침</a><a href="/terms.html">이용약관</a><a href="/contact.html">문의</a></nav>
+<p>© 2026 생활계산소. 계산 결과는 참고용이며, 중요한 결정은 공식 기관·전문가에게 확인하세요.</p>
+</div></footer>
+</body></html>

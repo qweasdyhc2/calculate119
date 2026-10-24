@@ -1,0 +1,79 @@
+<!doctype html>
+<html lang="ko"><head>
+<meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1">
+<title>기온별 옷차림 - 오늘 날씨 옷차림 추천 (내 위치 기온 자동)</title>
+<meta name="description" content="내 위치나 도시를 고르면 지금 기온·체감온도로 오늘 옷차림을 추천합니다. 28도·20도·10도·5도 등 기온별 옷차림 표, 일교차·비·바람에 맞춘 준비물까지 한 번에.">
+<link rel="canonical" href="https://calculate119.com/outfit.html">
+<meta property="og:type" content="website"><meta property="og:site_name" content="생활계산소">
+<meta property="og:title" content="기온별 옷차림 - 오늘 날씨 옷차림 추천 (내 위치 기온 자동)"><meta property="og:description" content="내 위치나 도시를 고르면 지금 기온·체감온도로 오늘 옷차림을 추천합니다. 28도·20도·10도·5도 등 기온별 옷차림 표, 일교차·비·바람에 맞춘 준비물까지 한 번에.">
+<meta property="og:url" content="https://calculate119.com/outfit.html"><meta property="og:locale" content="ko_KR">
+<link rel="icon" href="/favicon.svg" type="image/svg+xml">
+<link rel="stylesheet" href="/style.css?v=eb1b2141">
+<meta name="google-site-verification" content="Ud0e2f4xRsGiShvNCp4vhMmUsxDJ_Z0BHIBNY9R40Zc"><meta name="naver-site-verification" content="bd5cd166791467b34ebfe7deb4d3ea3daf29eee6"><script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-3494310005301969" crossorigin="anonymous"></script><script async src="https://www.googletagmanager.com/gtag/js?id=G-V4F55DEC9Y"></script><script>window.dataLayer=window.dataLayer||[];function gtag(){dataLayer.push(arguments);}gtag('js',new Date());gtag('config','G-V4F55DEC9Y');</script><script type="application/ld+json">{"@context": "https://schema.org", "@type": "WebApplication", "name": "기온별 옷차림", "url": "https://calculate119.com/outfit.html", "applicationCategory": "UtilitiesApplication", "operatingSystem": "Any", "inLanguage": "ko", "offers": {"@type": "Offer", "price": "0", "priceCurrency": "KRW"}, "description": "내 위치나 도시를 고르면 지금 기온·체감온도로 오늘 옷차림을 추천합니다. 28도·20도·10도·5도 등 기온별 옷차림 표, 일교차·비·바람에 맞춘 준비물까지 한 번에.", "citation": [{"@type": "CreativeWork", "name": "날씨 자료: 노르웨이 기상청 MET Norway (CC BY 4.0)", "url": "https://api.met.no/"}]}</script><script type="application/ld+json">{"@context": "https://schema.org", "@type": "FAQPage", "mainEntity": [{"@type": "Question", "name": "어떤 기온을 기준으로 추천하나요?", "acceptedAnswer": {"@type": "Answer", "text": "지금 시각의 체감온도를 기준으로 합니다. 바람이 불면 실제 기온보다 춥게 느껴지므로, 기온 10℃ 이하에서는 기상청과 같은 체감온도(풍속냉각) 공식으로 낮춰서 계산합니다."}}, {"@type": "Question", "name": "일교차가 크면 어떻게 입어야 하나요?", "acceptedAnswer": {"@type": "Answer", "text": "앞으로 24시간 최고·최저 기온 차이가 10℃ 이상이면 '겉옷 챙기기' 안내가 나옵니다. 아침·저녁 기온에 맞춘 겉옷을 들고 나가 낮에는 벗는 식으로 겹쳐 입으면 좋습니다."}}, {"@type": "Question", "name": "내 위치 정보는 어디에 저장되나요?", "acceptedAnswer": {"@type": "Answer", "text": "저장하지 않습니다. 위치는 날씨를 불러오는 데만 쓰이며, 소수점 둘째 자리(약 1km)로 줄여 날씨 서버에 보냅니다."}}, {"@type": "Question", "name": "기온별 옷차림 표는 정확한가요?", "acceptedAnswer": {"@type": "Answer", "text": "널리 쓰이는 일반적인 기준입니다. 더위·추위를 타는 정도, 활동량, 실내에 있는 시간에 따라 한 단계 가볍게 또는 두껍게 조절하세요."}}, {"@type": "Question", "name": "날씨 정보는 어디서 가져오나요?", "acceptedAnswer": {"@type": "Answer", "text": "노르웨이 기상청(MET Norway)의 전 세계 예보 자료를 씁니다. 한국 기상청 예보와 1~2℃ 정도 차이가 날 수 있습니다."}}]}</script>
+</head><body>
+<header class="top"><div class="wrap"><a class="logo" href="/">생활계산소</a></div></header>
+<main class="wrap c7"><p class="crumb"><a href="/">홈</a> › 오늘 추천</p><h1 class="th"><i class="ic">👕</i>기온별 옷차림</h1><div class="tool">
+ <div class="row"><label>지역<select id="city"></select></label><label>&nbsp;<button class="ghost" id="me" type="button">📍 내 위치로 보기</button></label></div>
+ <div class="result" id="out"><p class="note">날씨를 불러오는 중…</p></div>
+ <div class="row" style="margin-top:14px"><label>기온 직접 넣기 (℃)<input type="number" id="t" placeholder="예) 15" inputmode="decimal"></label><label>&nbsp;<button id="go" type="button">이 기온으로 추천</button></label></div>
+</div><p class="src"><b>계산 근거</b> <a href="https://api.met.no/" target="_blank" rel="noopener">날씨 자료: 노르웨이 기상청 MET Norway (CC BY 4.0)</a> <span>(2026. 10. 24. 확인)</span></p>
+<h2>기온별 옷차림 표</h2>
+<div class="scroll"><table id="tbl"><thead><tr><th>기온</th><th style="text-align:left">옷차림</th></tr></thead><tbody></tbody></table></div>
+<p class="note">지금 추천된 단계는 색으로 표시됩니다. 더위·추위를 많이 타면 한 단계 위·아래를 참고하세요.</p>
+<h2>옷차림 고르는 요령</h2>
+<ul><li><b>일교차 10℃ 이상</b>: 얇은 옷을 여러 겹 입고, 아침·저녁용 겉옷을 챙기세요.</li><li><b>바람이 강한 날</b>: 같은 기온이라도 2~4℃ 더 춥게 느껴집니다. 바람막이나 목을 덮는 옷이 좋아요.</li><li><b>비 오는 날</b>: 체온이 빨리 떨어지니 한 단계 따뜻하게 입고, 젖어도 잘 마르는 소재를 고르세요.</li><li><b>한여름</b>: 실내 냉방이 강하면 얇은 가디건 하나를 가방에 넣어 두세요.</li></ul>
+<script src="/app.js"></script>
+<script>
+const CITIES=[['서울',37.57,126.98],['인천',37.46,126.71],['수원',37.26,127.03],['춘천',37.88,127.73],['강릉',37.75,128.88],['대전',36.35,127.38],['세종',36.48,127.29],['청주',36.64,127.49],['대구',35.87,128.6],['포항',36.02,129.34],['울산',35.54,129.31],['부산',35.18,129.08],['창원',35.23,128.68],['광주',35.16,126.85],['전주',35.82,127.15],['목포',34.81,126.39],['여수',34.76,127.66],['제주',33.5,126.53],['서귀포',33.25,126.56]];
+// [하한 기온, 아이콘, 옷차림, 한마디]
+const LV=[[28,'🩳','민소매, 반팔, 반바지, 원피스','아주 더워요. 통풍이 잘 되는 얇은 옷이 좋아요.'],[23,'👕','반팔, 얇은 셔츠, 반바지, 면바지','반팔이면 충분한 날씨예요.'],[20,'👚','긴팔 티, 얇은 가디건, 면바지, 청바지','선선해요. 얇은 긴팔 하나면 돼요.'],[17,'🧶','얇은 니트, 맨투맨, 가디건, 청바지','쌀쌀해지기 시작해요. 얇은 겉옷을 걸치세요.'],[12,'🧥','재킷, 가디건, 야상, 청바지, 스타킹','겉옷이 꼭 필요해요.'],[9,'🧥','트렌치코트, 재킷, 니트, 야상','꽤 쌀쌀해요. 도톰한 겉옷을 입으세요.'],[5,'🧣','코트, 가죽재킷, 히트텍, 니트, 레깅스','추워요. 히트텍 같은 내복을 입으세요.'],[-99,'🥶','패딩, 두꺼운 코트, 목도리, 장갑, 기모 옷','한겨울이에요. 패딩과 방한용품을 챙기세요.']];
+const SYM={clearsky:['☀️','맑음'],fair:['🌤️','대체로 맑음'],partlycloudy:['⛅','구름 조금'],cloudy:['☁️','흐림'],fog:['🌫️','안개'],rain:['🌧️','비'],lightrain:['🌦️','약한 비'],heavyrain:['🌧️','강한 비'],rainshowers:['🌦️','소나기'],lightrainshowers:['🌦️','약한 소나기'],heavyrainshowers:['🌧️','강한 소나기'],sleet:['🌨️','진눈깨비'],lightsleet:['🌨️','약한 진눈깨비'],heavysleet:['🌨️','강한 진눈깨비'],snow:['❄️','눈'],lightsnow:['🌨️','약한 눈'],heavysnow:['❄️','많은 눈'],snowshowers:['🌨️','소낙눈'],lightsnowshowers:['🌨️','약한 소낙눈'],heavysnowshowers:['❄️','강한 소낙눈'],sleetshowers:['🌨️','진눈깨비'],lightsleetshowers:['🌨️','진눈깨비'],heavysleetshowers:['🌨️','진눈깨비']};
+const sym=c=>{c=(c||'').replace(/_(day|night|polartwilight)$/,'').replace(/andthunder$/,'');return SYM[c]||['🌡️','']};
+const lv=t=>LV.find(l=>Math.round(t)>=l[0]);
+const rng=(i)=>i===0?`${LV[0][0]}℃ 이상`:i===LV.length-1?`${LV[i-1][0]-1}℃ 이하`:`${LV[i][0]}~${LV[i-1][0]-1}℃`;
+// 체감온도(겨울철, 기상청 풍속냉각 공식): 기온 10℃ 이하·풍속 4.8km/h 이상일 때
+function feel(t,ms){const v=ms*3.6;if(t>10||v<4.8)return t;const p=Math.pow(v,0.16);return 13.12+0.6215*t-11.37*p+0.3965*t*p;}
+const r1=x=>Math.round(x*10)/10;
+function table(t){$('#tbl tbody').innerHTML=LV.map((l,i)=>`<tr${t!=null&&lv(t)===l?' style="background:var(--soft);font-weight:700"':''}><td>${rng(i)}</td><td style="text-align:left">${l[1]} ${l[2]}</td></tr>`).join('');}
+function pick(t){const l=lv(t);return `<div class="big">${l[1]} ${l[2]}</div><p style="margin:6px 0 0">${l[3]}</p>`;}
+CITIES.forEach((c,i)=>$('#city').insertAdjacentHTML('beforeend',`<option value="${i}">${c[0]}</option>`));
+try{const s=localStorage.getItem('outfit-city');if(s!=null&&CITIES[s])$('#city').value=s;}catch(e){}
+async function load(lat,lon,name){
+  $('#out').innerHTML='<p class="note">날씨를 불러오는 중…</p>';
+  try{
+    const r=await fetch(`https://api.met.no/weatherapi/locationforecast/2.0/compact?lat=${lat.toFixed(2)}&lon=${lon.toFixed(2)}`);
+    if(!r.ok)throw 0;
+    const ts=(await r.json()).properties.timeseries,now=Date.now();
+    const i0=Math.max(0,ts.findIndex(x=>new Date(x.time).getTime()>now-3600e3));
+    const cur=ts[i0],d=cur.data.instant.details,t=d.air_temperature,w=d.wind_speed,f=feel(t,w);
+    const next=ts.slice(i0).filter(x=>new Date(x.time).getTime()<=now+24*3600e3);
+    const temps=next.map(x=>x.data.instant.details.air_temperature),hi=Math.max(...temps),lo=Math.min(...temps);
+    const rain12=ts.slice(i0).filter(x=>new Date(x.time).getTime()<=now+12*3600e3).reduce((a,x)=>a+((((x.data.next_1_hours||{}).details||{}).precipitation_amount)||0),0);
+    const sc=(cur.data.next_1_hours||cur.data.next_6_hours||{summary:{}}).summary.symbol_code,[ic,lb]=sym(sc);
+    const tips=[];
+    if(hi-lo>=10)tips.push(`🌡️ 일교차가 ${Math.round(hi-lo)}℃예요. 가장 추울 때(${Math.round(lo)}℃)는 <b>${lv(lo)[2].split(', ')[0]}</b> 정도가 필요하니 겉옷을 챙기세요.`);
+    if(rain12>=0.5||/rain|sleet|snow/.test(sc||''))tips.push(`☂️ 12시간 안에 비나 눈 소식이 있어요${rain12>=0.5?` (약 ${r1(rain12)}mm)`:''}. 우산을 챙기세요.`);
+    if(w>=7)tips.push(`💨 바람이 강해요 (초속 ${r1(w)}m). 바람막이나 목을 덮는 옷이 좋아요.`);
+    if(hi>=30)tips.push('🧴 낮 기온이 30℃를 넘어요. 자외선 차단제와 물을 챙기세요.');
+    if(lo<=0)tips.push('🧤 영하로 내려가요. 장갑·목도리·귀마개를 챙기세요.');
+    const hours=ts.slice(i0,i0+13).filter((x,k)=>k%3===0).map(x=>{const h=new Date(x.time).getHours(),tt=x.data.instant.details.air_temperature,s=sym((x.data.next_1_hours||x.data.next_6_hours||{summary:{}}).summary.symbol_code)[0];return `<div><span>${h}시</span><b>${s} ${Math.round(tt)}℃</b><span>${lv(tt)[1]}</span></div>`;}).join('');
+    $('#out').innerHTML=`<p class="note" style="margin:0 0 6px">${name} · 지금 ${ic} ${lb}</p>`+pick(f)
+      +`<div class="stats" style="margin-top:12px;grid-template-columns:repeat(3,1fr)"><div><span>지금 기온</span><b>${r1(t)}℃</b></div><div><span>체감온도</span><b>${r1(f)}℃</b></div><div><span>최저 / 최고</span><b>${Math.round(lo)}℃ / ${Math.round(hi)}℃</b></div></div>`
+      +(tips.length?`<ul style="margin:12px 0 0;padding-left:18px">${tips.map(x=>`<li>${x}</li>`).join('')}</ul>`:'')
+      +`<p class="note" style="margin:14px 0 6px">3시간 간격</p><div class="stats" style="grid-template-columns:repeat(auto-fit,minmax(78px,1fr))">${hours}</div>`;
+    table(f);
+  }catch(e){$('#out').innerHTML='<p>날씨를 불러오지 못했어요. 아래에 기온을 직접 넣어 보세요.</p>';table(null);}
+}
+function byCity(){const c=CITIES[$('#city').value];try{localStorage.setItem('outfit-city',$('#city').value);}catch(e){}load(c[1],c[2],c[0]);}
+$('#city').onchange=byCity;
+$('#me').onclick=()=>{if(!navigator.geolocation){$('#out').innerHTML='<p>이 브라우저는 위치 기능을 지원하지 않아요. 지역을 골라 주세요.</p>';return;}
+  $('#out').innerHTML='<p class="note">위치를 확인하는 중…</p>';
+  navigator.geolocation.getCurrentPosition(p=>load(p.coords.latitude,p.coords.longitude,'내 위치'),()=>{$('#out').innerHTML='<p>위치 권한이 없어 지역 기준으로 보여 드려요.</p>';setTimeout(byCity,900);},{timeout:10000,maximumAge:600000});};
+$('#go').onclick=()=>{const v=$('#t').value;if(v===''){$('#t').focus();return;}const t=+v;$('#out').innerHTML=`<p class="note" style="margin:0 0 6px">기온 ${t}℃ 기준</p>`+pick(t);table(t);};
+table(null);byCity();
+</script>
+<section class="faq"><h2>자주 묻는 질문</h2><details><summary>어떤 기온을 기준으로 추천하나요?</summary><p>지금 시각의 체감온도를 기준으로 합니다. 바람이 불면 실제 기온보다 춥게 느껴지므로, 기온 10℃ 이하에서는 기상청과 같은 체감온도(풍속냉각) 공식으로 낮춰서 계산합니다.</p></details><details><summary>일교차가 크면 어떻게 입어야 하나요?</summary><p>앞으로 24시간 최고·최저 기온 차이가 10℃ 이상이면 &#x27;겉옷 챙기기&#x27; 안내가 나옵니다. 아침·저녁 기온에 맞춘 겉옷을 들고 나가 낮에는 벗는 식으로 겹쳐 입으면 좋습니다.</p></details><details><summary>내 위치 정보는 어디에 저장되나요?</summary><p>저장하지 않습니다. 위치는 날씨를 불러오는 데만 쓰이며, 소수점 둘째 자리(약 1km)로 줄여 날씨 서버에 보냅니다.</p></details><details><summary>기온별 옷차림 표는 정확한가요?</summary><p>널리 쓰이는 일반적인 기준입니다. 더위·추위를 타는 정도, 활동량, 실내에 있는 시간에 따라 한 단계 가볍게 또는 두껍게 조절하세요.</p></details><details><summary>날씨 정보는 어디서 가져오나요?</summary><p>노르웨이 기상청(MET Norway)의 전 세계 예보 자료를 씁니다. 한국 기상청 예보와 1~2℃ 정도 차이가 날 수 있습니다.</p></details></section><section><h2>다른 계산기</h2><div class="grid"><a class="card c7" href="/menu.html" data-k="점심·저녁 메뉴 추천 오늘 뭐 먹지? 랜덤 메뉴 뽑기"><i class="ic">🍚</i><span class="tx"><b>점심·저녁 메뉴 추천</b><span>오늘 뭐 먹지? 랜덤 메뉴 뽑기</span></span></a><a class="card c1" href="/age.html" data-k="만 나이 계산기 만 나이·연 나이·띠·다음 생일"><i class="ic">🎂</i><span class="tx"><b>만 나이 계산기</b><span>만 나이·연 나이·띠·다음 생일</span></span></a><a class="card c4" href="/bmr.html" data-k="기초대사량 계산기 BMR·하루 필요 칼로리"><i class="ic">🔥</i><span class="tx"><b>기초대사량 계산기</b><span>BMR·하루 필요 칼로리</span></span></a><a class="card c5" href="/car-tax.html" data-k="자동차세 계산기 배기량·연식별 연 자동차세"><i class="ic">🚗</i><span class="tx"><b>자동차세 계산기</b><span>배기량·연식별 연 자동차세</span></span></a><a class="card c6" href="/ladder.html" data-k="사다리타기 이름·결과 넣고 바로 하는 사다리 게임"><i class="ic">🪜</i><span class="tx"><b>사다리타기</b><span>이름·결과 넣고 바로 하는 사다리 게임</span></span></a><a class="card c5" href="/car-loan.html" data-k="자동차 할부 계산기 차 할부 월 납입금·총 이자"><i class="ic">🚙</i><span class="tx"><b>자동차 할부 계산기</b><span>차 할부 월 납입금·총 이자</span></span></a></div></section><p class="updated">최종 확인: 2026-10-24</p></main><footer class="foot"><div class="wrap">
+<nav><a href="/about.html">소개</a><a href="/privacy.html">개인정보처리방침</a><a href="/terms.html">이용약관</a><a href="/contact.html">문의</a></nav>
+<p>© 2026 생활계산소. 계산 결과는 참고용이며, 중요한 결정은 공식 기관·전문가에게 확인하세요.</p>
+</div></footer>
+</body></html>

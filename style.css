@@ -1,5 +1,5 @@
-:root{--k1:#3d6fd8;--k1s:#e8efff;--k2:#8a4fd0;--k2s:#f2eaff;--k3:#1f8a5a;--k3s:#e3f4ea;--k4:#e0782b;--k4s:#fff0e3;--k5:#c23b4e;--k5s:#ffe9ec;--k6:#0f8fa3;--k6s:#e1f6f8;--bg:#f7f6f2;--card:#fff;--ink:#1d1f1c;--sub:#5d625b;--line:#e2e0d8;--acc:#2f6f4f;--acc-ink:#fff;--soft:#e9f2ec}
-@media (prefers-color-scheme:dark){:root{--bg:#141614;--card:#1d201d;--ink:#ecece7;--sub:#a3a89f;--line:#30342f;--acc:#6fbf8f;--acc-ink:#0f1a13;--soft:#1f2d24;--k1:#7da2ff;--k1s:#1b2437;--k2:#c19cf5;--k2s:#2a2137;--k3:#6fcf9b;--k3s:#18291f;--k4:#ffa864;--k4s:#33241a;--k5:#ff8597;--k5s:#341c21;--k6:#5fd3e3;--k6s:#152b2e}}
+:root{--k1:#3d6fd8;--k1s:#e8efff;--k2:#8a4fd0;--k2s:#f2eaff;--k3:#1f8a5a;--k3s:#e3f4ea;--k4:#e0782b;--k4s:#fff0e3;--k5:#c23b4e;--k5s:#ffe9ec;--k6:#0f8fa3;--k6s:#e1f6f8;--k7:#b7791f;--k7s:#fdf3dc;--bg:#f7f6f2;--card:#fff;--ink:#1d1f1c;--sub:#5d625b;--line:#e2e0d8;--acc:#2f6f4f;--acc-ink:#fff;--soft:#e9f2ec}
+@media (prefers-color-scheme:dark){:root{--bg:#141614;--card:#1d201d;--ink:#ecece7;--sub:#a3a89f;--line:#30342f;--acc:#6fbf8f;--acc-ink:#0f1a13;--soft:#1f2d24;--k1:#7da2ff;--k1s:#1b2437;--k2:#c19cf5;--k2s:#2a2137;--k3:#6fcf9b;--k3s:#18291f;--k4:#ffa864;--k4s:#33241a;--k5:#ff8597;--k5s:#341c21;--k6:#5fd3e3;--k6s:#152b2e;--k7:#f2c35b;--k7s:#2f2716}}
 *{box-sizing:border-box}
 body{margin:0;background:var(--bg);color:var(--ink);font:16px/1.7 -apple-system,BlinkMacSystemFont,"Apple SD Gothic Neo","Pretendard","Noto Sans KR","Malgun Gothic",sans-serif;word-break:keep-all}
 a{color:var(--acc)}
@@ -47,7 +47,7 @@ th:first-child,td:first-child{text-align:left}
 .foot nav{display:flex;flex-wrap:wrap;gap:14px;margin-bottom:8px}.foot a{color:var(--sub)}
 
 /* 카테고리 색 */
-.c1{--k:var(--k1);--ks:var(--k1s)}.c2{--k:var(--k2);--ks:var(--k2s)}.c3{--k:var(--k3);--ks:var(--k3s)}.c4{--k:var(--k4);--ks:var(--k4s)}.c5{--k:var(--k5);--ks:var(--k5s)}.c6{--k:var(--k6);--ks:var(--k6s)}
+.c1{--k:var(--k1);--ks:var(--k1s)}.c2{--k:var(--k2);--ks:var(--k2s)}.c3{--k:var(--k3);--ks:var(--k3s)}.c4{--k:var(--k4);--ks:var(--k4s)}.c5{--k:var(--k5);--ks:var(--k5s)}.c6{--k:var(--k6);--ks:var(--k6s)}.c7{--k:var(--k7);--ks:var(--k7s)}
 .logo::before{content:"";display:inline-block;width:22px;height:22px;border-radius:7px;margin-right:8px;vertical-align:-4px;background:conic-gradient(var(--k1) 0 25%,var(--k2) 0 50%,var(--k3) 0 75%,var(--k4) 0)}
 /* 첫 화면 */
 .hero{background:linear-gradient(135deg,var(--k1s),var(--k2s) 45%,var(--k3s) 75%,var(--k4s));padding:36px 0 28px;border-bottom:1px solid var(--line)}
@@ -64,7 +64,7 @@ section.cat h2::before{content:"";width:6px;height:18px;border-radius:3px;backgr
 .ic{font-style:normal;flex:0 0 auto;display:grid;place-items:center;width:44px;height:44px;border-radius:12px;background:var(--ks);font-size:22px;font-weight:800;color:var(--k)}
 /* 도구 페이지 */
 h1.th{display:flex;align-items:center;gap:12px}
-main.c1,main.c2,main.c3,main.c4,main.c5,main.c6{--acc:var(--k);--soft:var(--ks)}
+main.c1,main.c2,main.c3,main.c4,main.c5,main.c6,main.c7{--acc:var(--k);--soft:var(--ks)}
 .tool{border-top:4px solid var(--k,var(--acc))}
 .result{border-left:4px solid var(--acc)}
 .big{color:var(--acc)}
