@@ -21,6 +21,21 @@
 <h2>퍼센트 계산 공식</h2>
 <ul><li>A의 B% = A × B ÷ 100</li><li>A는 B의 몇 % = A ÷ B × 100</li><li>증감률 = (B − A) ÷ A × 100</li><li>할인가 = A × (1 − B ÷ 100), 인상가 = A × (1 + B ÷ 100)</li></ul>
 <p>쇼핑 할인, 연봉 인상률, 주가 등락률, 시험 점수 비율처럼 일상에서 자주 쓰는 계산입니다. 소수점은 둘째 자리까지 보여 줍니다.</p>
+<!--guide-->
+<h2>계산 예시</h2>
+<ul>
+<li><b>할인가</b>: 80,000원짜리를 25% 할인하면 80,000 × (1 − 0.25) = 60,000원입니다.</li>
+<li><b>몇 퍼센트인지</b>: 30명 중 12명이면 12 ÷ 30 × 100 = 40%입니다.</li>
+<li><b>증가율</b>: 연봉이 3,000만 원에서 3,300만 원이 되면 (3,300 − 3,000) ÷ 3,000 × 100 = 10% 오른 것입니다.</li>
+<li><b>감소율</b>: 120만 원이던 값이 90만 원이 되면 (90 − 120) ÷ 120 × 100 = −25%, 즉 25% 줄었습니다.</li>
+</ul>
+<h2>헷갈리기 쉬운 점</h2>
+<ul>
+<li><b>오르고 내리는 기준이 다릅니다.</b> 100에서 50% 오르면 150인데, 150에서 50% 내리면 75입니다. 처음 값으로 돌아가려면 약 33.3%를 내려야 합니다.</li>
+<li><b>%와 %p는 다릅니다.</b> 지지율이 40%에서 44%가 되면 4%p 오른 것이고, 증가율로는 10% 오른 것입니다.</li>
+<li><b>할인을 겹치면 합산되지 않습니다.</b> 20% 할인 뒤에 10% 쿠폰을 쓰면 30%가 아니라 1 − 0.8 × 0.9 = 28% 할인입니다.</li>
+</ul>
+<p>결과는 소수점 둘째 자리까지 반올림해서 보여 주기 때문에, 직접 계산한 값과 끝자리가 조금 다를 수 있습니다.</p>
 <script src="/app.js"></script>
 <script>
 const f=(x)=>(Math.round(x*100)/100).toLocaleString('ko-KR');
@@ -31,7 +46,7 @@ function calc(){const v=i=>parseFloat($('#'+i).value);
   $('#o4').innerHTML=`할인 시 <b>${f(v('a4')*(1-v('b4')/100))}</b> (−${f(v('a4')*v('b4')/100)}) · 인상 시 <b>${f(v('a4')*(1+v('b4')/100))}</b>`;}
 document.querySelectorAll('input').forEach(i=>i.oninput=calc);calc();
 </script>
-<section class="faq"><h2>자주 묻는 질문</h2><details><summary>증가율은 어떻게 구하나요?</summary><p>(바뀐 값 − 처음 값) ÷ 처음 값 × 100 입니다. 100에서 120이 되면 20% 증가입니다.</p></details><details><summary>20% 올렸다가 20% 내리면 원래대로 돌아오나요?</summary><p>아니요. 100을 20% 올리면 120, 다시 20% 내리면 96입니다. 기준값이 바뀌기 때문입니다.</p></details><details><summary>%p(퍼센트포인트)는 뭔가요?</summary><p>퍼센트끼리의 차이입니다. 금리가 3%에서 4%가 되면 1%p 올랐다고 하고, 증가율로는 약 33% 오른 것입니다.</p></details></section><section><h2>다른 계산기</h2><div class="grid"><a class="card c3" href="/vat.html" data-k="부가세 계산기 공급가액 ↔ 합계금액, VAT 10%"><i class="ic">🧾</i><span class="tx"><b>부가세 계산기</b><span>공급가액 ↔ 합계금액, VAT 10%</span></span></a><a class="card c3" href="/annual-leave.html" data-k="연차 · 연차수당 계산기 입사일 기준 연차 일수, 연차수당"><i class="ic">🏖️</i><span class="tx"><b>연차 · 연차수당 계산기</b><span>입사일 기준 연차 일수, 연차수당</span></span></a><a class="card c3" href="/installment.html" data-k="할부 계산기 카드 할부 수수료·월 납부액"><i class="ic">💳</i><span class="tx"><b>할부 계산기</b><span>카드 할부 수수료·월 납부액</span></span></a><a class="card c3" href="/margin.html" data-k="마진율 계산기 마진율·마크업, 목표 판매가"><i class="ic">📈</i><span class="tx"><b>마진율 계산기</b><span>마진율·마크업, 목표 판매가</span></span></a><a class="card c3" href="/capital-gains-tax.html" data-k="양도소득세 계산기 1주택 비과세·장특공제·중과·세제개편안 비교"><i class="ic">🏠</i><span class="tx"><b>양도소득세 계산기</b><span>1주택 비과세·장특공제·중과·세제개편안 비교</span></span></a><a class="card c3" href="/freelancer-tax.html" data-k="3.3% 프리랜서 세금 계산기 3.3%·8.8% 떼고 실수령액, 역산"><i class="ic">💼</i><span class="tx"><b>3.3% 프리랜서 세금 계산기</b><span>3.3%·8.8% 떼고 실수령액, 역산</span></span></a></div></section><p class="updated">최종 확인: 2026-10-24</p></main><footer class="foot"><div class="wrap">
+<section class="faq"><h2>자주 묻는 질문</h2><details><summary>증가율은 어떻게 구하나요?</summary><p>(바뀐 값 − 처음 값) ÷ 처음 값 × 100 입니다. 100에서 120이 되면 20% 증가입니다.</p></details><details><summary>20% 올렸다가 20% 내리면 원래대로 돌아오나요?</summary><p>아니요. 100을 20% 올리면 120, 다시 20% 내리면 96입니다. 기준값이 바뀌기 때문입니다.</p></details><details><summary>%p(퍼센트포인트)는 뭔가요?</summary><p>퍼센트끼리의 차이입니다. 금리가 3%에서 4%가 되면 1%p 올랐다고 하고, 증가율로는 약 33% 오른 것입니다.</p></details></section><section><h2>다른 계산기</h2><div class="grid"><a class="card c3" href="/vat.html" data-k="부가세 계산기 공급가액 ↔ 합계금액, VAT 10%"><i class="ic">🧾</i><span class="tx"><b>부가세 계산기</b><span>공급가액 ↔ 합계금액, VAT 10%</span></span></a><a class="card c3" href="/annual-leave.html" data-k="연차 · 연차수당 계산기 입사일 기준 연차 일수, 연차수당"><i class="ic">🏖️</i><span class="tx"><b>연차 · 연차수당 계산기</b><span>입사일 기준 연차 일수, 연차수당</span></span></a><a class="card c3" href="/installment.html" data-k="할부 계산기 카드 할부 수수료·월 납부액"><i class="ic">💳</i><span class="tx"><b>할부 계산기</b><span>카드 할부 수수료·월 납부액</span></span></a><a class="card c3" href="/margin.html" data-k="마진율 계산기 마진율·마크업, 목표 판매가"><i class="ic">📈</i><span class="tx"><b>마진율 계산기</b><span>마진율·마크업, 목표 판매가</span></span></a><a class="card c3" href="/capital-gains-tax.html" data-k="양도소득세 계산기 1주택 비과세·장특공제·중과·세제개편안 비교"><i class="ic">🏠</i><span class="tx"><b>양도소득세 계산기</b><span>1주택 비과세·장특공제·중과·세제개편안 비교</span></span></a><a class="card c3" href="/freelancer-tax.html" data-k="3.3% 프리랜서 세금 계산기 3.3%·8.8% 떼고 실수령액, 역산"><i class="ic">💼</i><span class="tx"><b>3.3% 프리랜서 세금 계산기</b><span>3.3%·8.8% 떼고 실수령액, 역산</span></span></a></div></section><p class="updated">최종 확인: 2026-11-06</p></main><footer class="foot"><div class="wrap">
 <nav><a href="/about.html">소개</a><a href="/privacy.html">개인정보처리방침</a><a href="/terms.html">이용약관</a><a href="/contact.html">문의</a></nav>
 <p>© 2026 생활계산소. 계산 결과는 참고용이며, 중요한 결정은 공식 기관·전문가에게 확인하세요.</p>
 </div></footer>
